@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PokeCardDemo</string>
+    <string name="sets_text">Sets</string>
+    <string name="favorites_text">Favorites</string>
+    <string name="deck_text">Deck</string>
+    <string name="pokemons_text">Pokemons</string>
+</resources>
