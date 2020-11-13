@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
+package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model;
 
 import androidx.lifecycle.ViewModel;
 

@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonCardViewModel;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardViewModel;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 
 public class PokemonCardFragment extends Fragment {
 
     private PokemonCardViewModel mViewModel;
+    private String setName;
 
     public static PokemonCardFragment newInstance() {
         return new PokemonCardFragment();

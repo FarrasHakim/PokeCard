@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "pokemon_card_table")
 public class PokemonCard {
+    @NonNull
     @PrimaryKey()
     @ColumnInfo(name = "id")
     String id;
