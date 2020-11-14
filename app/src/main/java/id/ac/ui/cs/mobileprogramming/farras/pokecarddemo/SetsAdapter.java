@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonSet;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragmentDirections;
 
 import java.util.List;
@@ -106,7 +106,12 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.CustomViewHold
 
     @Override
     public int getItemCount() {
-        return pokemonSets.size();
+            return pokemonSets != null ? pokemonSets.size() : 0;
+    }
+
+    public void setPokemonSet(List<PokemonSet> pokemonSets){
+        this.pokemonSets = pokemonSets;
+        notifyDataSetChanged();
     }
 
 }

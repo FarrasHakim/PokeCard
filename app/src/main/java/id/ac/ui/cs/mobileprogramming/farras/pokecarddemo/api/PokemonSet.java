@@ -22,6 +22,17 @@ public class PokemonSet {
         this.totalCards = totalCards;
     }
 
+    public id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet toPokemonSetEntity () {
+        return new id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet(
+                null,
+                name,
+                symbolUrl,
+                logoUrl,
+                series,
+                totalCards
+                );
+    }
+
     public String getName() {
         return name;
     }

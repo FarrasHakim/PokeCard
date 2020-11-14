@@ -10,20 +10,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetViewModel;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.SetsAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiClient;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiInterface;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonSetResponse;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.List;
+
 public class PokemonSetFragment extends Fragment {
     private SetsAdapter adapter;
     private RecyclerView recyclerView;
+    private PokemonSetViewModel mPokemonSetViewModel;
     ProgressDialog progressDialog;
 
     public PokemonSetFragment() {
@@ -32,6 +39,14 @@ public class PokemonSetFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPokemonSetViewModel = ViewModelProviders.of(this).get(PokemonSetViewModel.class);
+        mPokemonSetViewModel.getAllSets().observe(this, new Observer<List<PokemonSet>>() {
+            @Override
+            public void onChanged(@Nullable final List<PokemonSet> sets) {
+                // Update the cached copy of the words in the adapter.
+                loadPokemonSetUI(sets);
+            }
+        });
     }
 
     @Nullable
@@ -47,34 +62,12 @@ public class PokemonSetFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading....");
-        progressDialog.show();
-
-        ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
-        Call<PokemonSetResponse> call = service.getCardSet();
-        call.enqueue(new Callback<PokemonSetResponse>() {
-            @Override
-            public void onResponse(Call<PokemonSetResponse> call, Response<PokemonSetResponse> response) {
-                progressDialog.dismiss();
-
-                Log.d("MainActivityDebugger","Dapat yes: " + response.body());
-                Log.d("MainActivityDebugger","Dapat yes: " + response);
-                generateDataList(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<PokemonSetResponse> call, Throwable t) {
-                progressDialog.dismiss();
-                Log.wtf("Dafuk", "The F");
-                Toast.makeText(getActivity(), "Something is wrong. I can feel it.", Toast.LENGTH_SHORT);
-            }
-        });
     }
 
-    private void generateDataList(PokemonSetResponse pokemonSetResponse) {
+    private void loadPokemonSetUI(List<PokemonSet> pokemonSets) {
         recyclerView = getView().findViewById(R.id.customRecyclerView);
-        adapter = new SetsAdapter(getActivity(),pokemonSetResponse.getSets());
+        adapter = new SetsAdapter(getActivity(),pokemonSets);
+//        adapter.setPokemonSet(pokemonSets);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

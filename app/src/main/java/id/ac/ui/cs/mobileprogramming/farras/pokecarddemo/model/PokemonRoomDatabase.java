@@ -1,13 +1,16 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {PokemonCard.class, PokemonSet.class}, version = 1, exportSchema = false)
 public abstract class PokemonRoomDatabase extends RoomDatabase {
     public abstract PokemonCardDao pokemonCardDao();
+    public abstract PokemonSetDao pokemonSetDao();
 
     private static PokemonRoomDatabase INSTANCE;
 
