@@ -39,8 +39,21 @@ public class PokemonSetFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("SetFragment", "onCreate");
         mPokemonSetViewModel = ViewModelProviders.of(this).get(PokemonSetViewModel.class);
-        mPokemonSetViewModel.getAllSets().observe(this, new Observer<List<PokemonSet>>() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("SetFragment", "OnResume");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.d("SetFragment", "ViewStateResrotered");
+        mPokemonSetViewModel.getAllSets().observe(getViewLifecycleOwner(), new Observer<List<PokemonSet>>() {
             @Override
             public void onChanged(@Nullable final List<PokemonSet> sets) {
                 // Update the cached copy of the words in the adapter.
