@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -37,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonView;
     private static final String TEXT_STATE = "currentText";
     ProgressDialog progressDialog;
+    private PokemonSetViewModel pokemonSetViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pokemonSetViewModel = ViewModelProviders.of(this).get(PokemonSetViewModel.class);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);;
         progressDialog = new ProgressDialog(this);
         progressBar.setVisibility(View.INVISIBLE);
@@ -78,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
         buttonView.setText("Syncing...");
         buttonView.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
-        new DbSynchronizer(buttonView, progressBar, this).execute();
+//        new DbSynchronizer(buttonView, progressBar, this).execute();
+        pokemonSetViewModel.syncDb();
+        
         progressDialog.dismiss();
     }
 

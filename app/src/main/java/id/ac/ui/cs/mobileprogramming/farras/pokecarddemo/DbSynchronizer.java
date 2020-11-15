@@ -50,7 +50,34 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
                 Log.d("MainActivityDebugger","Dapat yes: " + response.body());
                 Log.d("MainActivityDebugger","Dapat yes: " + response);
                 pokemonSetApiData = response.body().getSets();
-                syncDb(pokemonSetApiData);
+
+//                if (pokemonSetApiData.size() > 0) {
+//                    for (int index = 0; index < pokemonSetApiData.size(); index++) {
+//                        int percentage = (index+1) * (100/pokemonSetApiData.size());
+//                        publishProgress(percentage);
+//                        mPokemonSetDao.insert(pokemonSetApiData.get(index).toPokemonSetEntity());
+//                    }
+//                }
+
+//                Runnable startTimer = new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Insert Data
+//                        Log.d("Runnable", "Running syncDb");
+//                        syncDb(pokemonSetApiData);
+//                    }
+//                };
+
+                Thread downloadThread = new Thread(new Runnable() {
+                    public void run() {
+                        // Insert Data
+                        Log.d("Runnable", "Running syncDb");
+                        syncDb(pokemonSetApiData);
+                    }
+                });
+
+                downloadThread.run();
+
             }
 
             @Override
@@ -70,7 +97,7 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
         if (mPokemonSetDao.getAllSets().getValue() == null ) {
             for (int index = 0; index < pokemonSets.size(); index++) {
                 int percentage = (index+1) * (100/pokemonSets.size());
-                publishProgress();
+                publishProgress(percentage);
                 mPokemonSetDao.insert(pokemonSets.get(index).toPokemonSetEntity());
             }
         }

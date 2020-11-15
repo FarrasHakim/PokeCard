@@ -3,6 +3,8 @@ package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api;
 import com.google.gson.annotations.SerializedName;
 
 public class PokemonSet {
+    @SerializedName("code")
+    String code;
     @SerializedName("name")
     String name;
     @SerializedName("symbolUrl")
@@ -24,7 +26,7 @@ public class PokemonSet {
 
     public id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet toPokemonSetEntity () {
         return new id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet(
-                null,
+                code,
                 name,
                 symbolUrl,
                 logoUrl,
