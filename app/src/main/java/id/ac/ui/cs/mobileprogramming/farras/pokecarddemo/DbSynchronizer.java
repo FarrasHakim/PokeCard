@@ -22,7 +22,6 @@ import retrofit2.Response;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
     private WeakReference<Button> buttonView;
@@ -105,9 +104,6 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
 
     protected void onPostExecute(String result) {
         Log.d("onPostExecute" , String.valueOf(pokemonSetApiData));
-//        if (pokemonSetApiData != null) {
-//            syncDb(pokemonSetApiData);
-//        }
         buttonView.get().setText(result);
         buttonView.get().setEnabled(true);
         progressBar.get().setProgress(0);

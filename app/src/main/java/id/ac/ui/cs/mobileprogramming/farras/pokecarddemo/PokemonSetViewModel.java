@@ -2,6 +2,8 @@ package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -39,16 +41,7 @@ public class PokemonSetViewModel extends AndroidViewModel {
 
                 Log.d("MainActivityDebugger","Dapat yes: " + response.body());
                 Log.d("MainActivityDebugger","Dapat yes: " + response);
-//                pokemonSetApiData = response.body().getSets();
 
-//                Runnable startTimer = new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // Insert Data
-//                        Log.d("Runnable", "Running syncDb");
-//                        syncDb(pokemonSetApiData);
-//                    }
-//                };
                 final List<id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonSet> pokemonSetApiData = response.body().getSets();
                 Thread downloadThread = new Thread(new Runnable() {
                     public void run() {
@@ -58,7 +51,7 @@ public class PokemonSetViewModel extends AndroidViewModel {
                             for (int index = 0; index < pokemonSetApiData.size(); index++) {
                                 int percentage = (index+1) * (100/pokemonSetApiData.size());
 //                                publishProgress(percentage);
-                                mRepository.insertPokemonSet(pokemonSetApiData.get(index).toPokemonSetEntity());
+                                insert(pokemonSetApiData.get(index).toPokemonSetEntity());
                             }
                         }
                     }
@@ -82,5 +75,12 @@ public class PokemonSetViewModel extends AndroidViewModel {
 
     public void insert(PokemonSet set) {
         mRepository.insertPokemonSet(set);
+    }
+
+    private boolean isWifiConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        boolean isMetered = connMgr.isActiveNetworkMetered();
+        return (networkInfo != null && networkInfo.isConnected() && isMetered);
     }
 }

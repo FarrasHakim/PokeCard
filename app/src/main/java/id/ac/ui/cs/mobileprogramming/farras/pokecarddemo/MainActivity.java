@@ -61,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        if (isWifiConnected()) {
-        }
     }
 
     @Override
@@ -85,13 +82,6 @@ public class MainActivity extends AppCompatActivity {
         pokemonSetViewModel.syncDb();
         Log.wtf("DAFUQ", "After sync db");
         progressDialog.dismiss();
-    }
-
-    private boolean isWifiConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        boolean isMetered = connMgr.isActiveNetworkMetered();
-        return (networkInfo != null && networkInfo.isConnected() && isMetered);
     }
 
 }
