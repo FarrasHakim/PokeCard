@@ -15,30 +15,71 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragmentDirections;
 
 import java.util.List;
 
-public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.CustomViewHolder>{
+public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.CustomViewHolder>{
     private List<PokemonSet> pokemonSets;
     private Context context;
+    private CardListener cardListener;
 
-    public SetsAdapter(Context context, List<PokemonSet> pokemonSets) {
+    public PokemonSetsAdapter(Context appContext,PokemonSetFragment cardListener, List<PokemonSet> pokemonSets) {
         this.pokemonSets = pokemonSets;
-        this.context = context;
+        this.cardListener = cardListener;
+        this.context = appContext;
     }
+
+    @NonNull
+    @Override
+    public PokemonSetsAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("RecyclerView", "CreateViewHolder");
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.set_row, parent, false);
+
+        return new CustomViewHolder(view, this.cardListener);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PokemonSetsAdapter.CustomViewHolder holder, int position) {
+        Log.d("RecyclerView", "BindViewHolder");
+        Picasso.Builder builder = new Picasso.Builder(context);
+        builder.downloader(new OkHttp3Downloader(context));
+        builder.build().load(pokemonSets.get(position).getLogoUrl())
+                .placeholder((R.drawable.ic_launcher_background))
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.logoImage);
+        holder.setName.setText(pokemonSets.get(position).getName());
+        Log.d("RecyclerView", pokemonSets.get(position).getName());
+    }
+
+    @Override
+    public int getItemCount() {
+            return pokemonSets != null ? pokemonSets.size() : 0;
+    }
+
+    public void setPokemonSet(List<PokemonSet> pokemonSets){
+        this.pokemonSets = pokemonSets;
+        notifyDataSetChanged();
+    }
+
+    public PokemonSet getPokemonSetAt(int position) {
+        return pokemonSets.get(position);
+    }
+
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-        final SetsAdapter setsAdapter;
         private ImageView logoImage;
         private TextView setName;
         private ImageView starIcon;
         private RelativeLayout clickArea;
+        private CardListener cardListener;
 
-        CustomViewHolder(View itemView, SetsAdapter adapter) {
+        CustomViewHolder(final View itemView, final CardListener cardListener) {
             super(itemView);
             Log.d("AdapterDebugger", "Constructor View Holder");
             mView = itemView;
@@ -46,7 +87,7 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.CustomViewHold
             setName = mView.findViewById(R.id.setName);
             starIcon = mView.findViewById(R.id.starIcon);
             clickArea = mView.findViewById(R.id.set_container);
-            this.setsAdapter = adapter;
+            this.cardListener = cardListener;
 
             starIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,47 +112,22 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.CustomViewHold
                 @Override
                 public void onClick(View v) {
                     Log.d("Adapter", setName.getText().toString());
-                    Toast.makeText(context, setName.getText(), Toast.LENGTH_SHORT).show();
+                    cardListener.onCardListener(getAdapterPosition(), true, itemView);
+//                    Toast.makeText(context, setName.getText(), Toast.LENGTH_SHORT).show();
 
-                    NavDirections action = PokemonSetFragmentDirections.actionNavigationSetsToNavigationCards();
-                    Navigation.findNavController(v).navigate(action);
+
+//                    NavDirections action = PokemonSetFragmentDirections.actionNavigationSetsToNavigationCards();
+//                    Navigation.findNavController(v).navigate(action);
+
                 }
             });
 
         }
     }
 
-    @NonNull
-    @Override
-    public SetsAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("RecyclerView", "CreateViewHolder");
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.set_row, parent, false);
-
-        return new CustomViewHolder(view, this);
+    public interface CardListener{
+        void onCardListener(int position, boolean addClicked, View view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull SetsAdapter.CustomViewHolder holder, int position) {
-        Log.d("RecyclerView", "BindViewHolder");
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttp3Downloader(context));
-        builder.build().load(pokemonSets.get(position).getLogoUrl())
-                .placeholder((R.drawable.ic_launcher_background))
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.logoImage);
-        holder.setName.setText(pokemonSets.get(position).getName());
-        Log.d("RecyclerView", pokemonSets.get(position).getName());
-    }
-
-    @Override
-    public int getItemCount() {
-            return pokemonSets != null ? pokemonSets.size() : 0;
-    }
-
-    public void setPokemonSet(List<PokemonSet> pokemonSets){
-        this.pokemonSets = pokemonSets;
-        notifyDataSetChanged();
-    }
 
 }

@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         pokemonSetViewModel.syncDb();
         Log.wtf("DAFUQ", "After sync db");
         progressDialog.dismiss();
+        buttonView.setText("Sync");
+        buttonView.setEnabled(true);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 }

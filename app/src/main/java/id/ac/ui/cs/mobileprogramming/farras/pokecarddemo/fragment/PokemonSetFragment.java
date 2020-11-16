@@ -16,19 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetViewModel;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.SetsAdapter;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiClient;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiInterface;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonSetResponse;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetsAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.util.List;
 
-public class PokemonSetFragment extends Fragment {
-    private SetsAdapter adapter;
+public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.CardListener {
+    private PokemonSetsAdapter adapter;
     private RecyclerView recyclerView;
     private PokemonSetViewModel mPokemonSetViewModel;
     ProgressDialog progressDialog;
@@ -79,10 +73,19 @@ public class PokemonSetFragment extends Fragment {
 
     private void loadPokemonSetUI(List<PokemonSet> pokemonSets) {
         recyclerView = getView().findViewById(R.id.customRecyclerView);
-        adapter = new SetsAdapter(getActivity(),pokemonSets);
-//        adapter.setPokemonSet(pokemonSets);
+        adapter = new PokemonSetsAdapter(getContext(),this,pokemonSets);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCardListener(int position, boolean addClicked, View view) {
+        PokemonSet theSet = adapter.getPokemonSetAt(position);
+        String toastText = "Card " + position + "clicked" + "\n"
+                + "Set code :" + theSet.getId() + "\n"
+                + "Set Name : " + theSet.getName() + "\n"
+                + "Total cards:  " + theSet.getTotalCards();
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_LONG).show();
     }
 }
