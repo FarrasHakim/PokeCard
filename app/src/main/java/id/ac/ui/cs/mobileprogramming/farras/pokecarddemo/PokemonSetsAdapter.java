@@ -35,7 +35,7 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
     @NonNull
     @Override
     public PokemonSetsAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("RecyclerView", "CreateViewHolder");
+//        Log.d("RecyclerView", "CreateViewHolder");
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.set_row, parent, false);
 
@@ -44,7 +44,7 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PokemonSetsAdapter.CustomViewHolder holder, int position) {
-        Log.d("RecyclerView", "BindViewHolder");
+//        Log.d("RecyclerView", "BindViewHolder");
         Picasso.Builder builder = new Picasso.Builder(context);
         builder.downloader(new OkHttp3Downloader(context));
         builder.build().load(pokemonSets.get(position).getLogoUrl())
@@ -52,7 +52,7 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.logoImage);
         holder.setName.setText(pokemonSets.get(position).getName());
-        Log.d("RecyclerView", pokemonSets.get(position).getName());
+//        Log.d("RecyclerView", pokemonSets.get(position).getName());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
 
         CustomViewHolder(final View itemView, final CardListener cardListener) {
             super(itemView);
-            Log.d("AdapterDebugger", "Constructor View Holder");
+//            Log.d("AdapterDebugger", "Constructor View Holder");
             mView = itemView;
             logoImage = mView.findViewById(R.id.coverImage);
             setName = mView.findViewById(R.id.setName);
@@ -92,16 +92,16 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
             starIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("SetAdapter", "Star Icon Pressed");
-                    Log.d("SetAdapter", "Drawable: " + R.drawable.ic_star_void_dark);
-                    Log.d("SetAdapter", "Star Icon Tag: " + starIcon.getTag());
-                    Log.d("SetAdapter", String.valueOf((Integer) R.drawable.ic_star_void_dark == starIcon.getTag()));
+//                    Log.d("SetAdapter", "Star Icon Pressed");
+//                    Log.d("SetAdapter", "Drawable: " + R.drawable.ic_star_void_dark);
+//                    Log.d("SetAdapter", "Star Icon Tag: " + starIcon.getTag());
+//                    Log.d("SetAdapter", String.valueOf((Integer) R.drawable.ic_star_void_dark == starIcon.getTag()));
                     if (starIcon.getTag() == null || R.drawable.ic_star_void_dark == (Integer) starIcon.getTag()) {
-                        Log.d("SetAdapter", "If");
+//                        Log.d("SetAdapter", "If");
                         starIcon.setImageResource(R.drawable.ic_star_filled);
                         starIcon.setTag(R.drawable.ic_star_filled);
                     } else {
-                        Log.d("SetAdapter", "Else");
+//                        Log.d("SetAdapter", "Else");
                         starIcon.setImageResource(R.drawable.ic_star_void_dark);
                         starIcon.setTag(R.drawable.ic_star_void_dark);
                     }
@@ -111,7 +111,7 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
             clickArea.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("Adapter", setName.getText().toString());
+//                    Log.d("Adapter", setName.getText().toString());
                     cardListener.onCardListener(getAdapterPosition(), true, itemView);
 //                    Toast.makeText(context, setName.getText(), Toast.LENGTH_SHORT).show();
 

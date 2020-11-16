@@ -6,13 +6,13 @@ import java.util.List;
 
 public class PokemonCardResponse {
     @SerializedName("cards")
-    private List<PokemonCard> pokemonCards;
+    private List<PokemonCard> cards;
 
     public List<PokemonCard> getPokemonCards() {
-        return pokemonCards;
+        return cards;
     }
 
     public void setPokemonCards(List<PokemonCard> pokemonCards) {
-        this.pokemonCards = pokemonCards;
+        this.cards = pokemonCards;
     }
 }

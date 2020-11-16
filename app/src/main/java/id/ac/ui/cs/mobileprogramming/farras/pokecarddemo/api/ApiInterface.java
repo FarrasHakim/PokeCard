@@ -12,7 +12,7 @@ public interface ApiInterface {
 
 
     @GET("cards")
-    Call<List<PokemonCard>> getCards();
+    Call<PokemonCardResponse> getCards();
 
 
     @GET("cards/xy7-54")

@@ -33,4 +33,19 @@ public class PokemonCard {
     String set;
     @ColumnInfo(name = "set_code")
     String setCode;
+
+    public PokemonCard(@NonNull String id, String name, String nationalPokedexNumber, String imageUrl, String imageUrlHiRes, String types, String supertype, String subtype, String number, String series, String set, String setCode) {
+        this.id = id;
+        this.name = name;
+        this.nationalPokedexNumber = nationalPokedexNumber;
+        this.imageUrl = imageUrl;
+        this.imageUrlHiRes = imageUrlHiRes;
+        this.types = types;
+        this.supertype = supertype;
+        this.subtype = subtype;
+        this.number = number;
+        this.series = series;
+        this.set = set;
+        this.setCode = setCode;
+    }
 }

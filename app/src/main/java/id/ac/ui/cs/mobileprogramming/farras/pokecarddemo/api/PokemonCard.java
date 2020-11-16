@@ -1,6 +1,9 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api;
 
+import android.util.Log;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class PokemonCard {
     @SerializedName("id")
@@ -14,7 +17,7 @@ public class PokemonCard {
     @SerializedName("imageUrlHiRes")
     String imageUrlHiRes;
     @SerializedName("types")
-    String types;
+    List<String> types;
     @SerializedName("supertype")
     String supertype;
     @SerializedName("subtype")
@@ -28,19 +31,30 @@ public class PokemonCard {
     @SerializedName("setCode")
     String setCode;
 
-    public PokemonCard(String id, String name, String nationalPokedexNumber, String imageUrl, String imageUrlHiRes, String types, String supertype, String subtype, String number, String series, String set, String setCode) {
-        this.id = id;
-        this.name = name;
-        this.nationalPokedexNumber = nationalPokedexNumber;
-        this.imageUrl = imageUrl;
-        this.imageUrlHiRes = imageUrlHiRes;
-        this.types = types;
-        this.supertype = supertype;
-        this.subtype = subtype;
-        this.number = number;
-        this.series = series;
-        this.set = set;
-        this.setCode = setCode;
+    public id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard toPokemonCardEntity() {
+        String typesStr = "";
+        Log.d("CardApi", name);
+        if (types != null) {
+            for (String type: types) {
+                typesStr += type + ",";
+            }
+        } else {
+            typesStr = "None";
+        }
+        return new id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard(
+                id,
+                name,
+                nationalPokedexNumber,
+                imageUrl,
+                imageUrlHiRes,
+                typesStr,
+                supertype,
+                subtype,
+                number,
+                series,
+                set,
+                setCode
+        );
     }
 
     public String getId() {
@@ -83,11 +97,11 @@ public class PokemonCard {
         this.imageUrlHiRes = imageUrlHiRes;
     }
 
-    public String getTypes() {
+    public List<String> getTypes() {
         return types;
     }
 
-    public void setTypes(String types) {
+    public void setTypes(List<String> types) {
         this.types = types;
     }
 

@@ -35,19 +35,36 @@ public class PokemonCardRepository {
     public LiveData<List<PokemonSet>> getAllPokemonSets() { return mAllPokemonSets; }
 
     public void insertPokemonSet(PokemonSet pokemonSet) {
-        new insertAsyncTask(mPokemonSetDao).execute(pokemonSet);
+        new insertSetAsyncTask(mPokemonSetDao).execute(pokemonSet);
     }
 
-    private static class insertAsyncTask extends AsyncTask<PokemonSet, Void, Void> {
+    public void insertPokemonCard(PokemonCard pokemonCard) { new insertCardAsyncTask(mPokemonCardDao).execute(pokemonCard); }
+
+    private static class insertSetAsyncTask extends AsyncTask<PokemonSet, Void, Void> {
 
         private PokemonSetDao mAsyncTaskDao;
 
-        insertAsyncTask(PokemonSetDao dao) {
+        insertSetAsyncTask(PokemonSetDao dao) {
             mAsyncTaskDao = dao;
         }
 
         @Override
         protected Void doInBackground(final PokemonSet... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class insertCardAsyncTask extends AsyncTask<PokemonCard, Void, Void> {
+
+        private PokemonCardDao mAsyncTaskDao;
+
+        insertCardAsyncTask(PokemonCardDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final PokemonCard... params) {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }

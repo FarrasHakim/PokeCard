@@ -9,9 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiClient;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiInterface;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonSetResponse;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.*;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardRepository;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 import retrofit2.Call;
@@ -35,6 +33,8 @@ public class PokemonSetViewModel extends AndroidViewModel {
     public void syncDb() {
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
         Call<PokemonSetResponse> call = service.getCardSet();
+
+
         call.enqueue(new Callback<PokemonSetResponse>() {
             @Override
             public void onResponse(Call<PokemonSetResponse> call, Response<PokemonSetResponse> response) {
@@ -63,10 +63,57 @@ public class PokemonSetViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<PokemonSetResponse> call, Throwable t) {
-                Log.wtf("Dafuk", "The F");
+                Log.wtf("Dafuk", "The F ");
+                Log.wtf("Dafuk", String.valueOf(call));
                 Toast.makeText(application, "Something is wrong. I can feel it.", Toast.LENGTH_SHORT);
             }
         });
+
+
+        Call<PokemonCardResponse> cardCall = service.getCards();
+
+        Log.d("SebelumCardCall", "SebelumCardCall " + cardCall);
+        cardCall.enqueue(new Callback<PokemonCardResponse>() {
+            @Override
+            public void onResponse(Call<PokemonCardResponse> call, Response<PokemonCardResponse> response) {
+
+                Log.d("cardCall","Dapat yes: " + response.body());
+                Log.d("cardCall","Dapat yes: " + response);
+
+                final List<PokemonCard> pokemonCardApiData = response.body().getPokemonCards();
+                Thread downloadThread = new Thread(new Runnable() {
+                    public void run() {
+                        // Insert Data
+                        if (pokemonCardApiData.size() > 0) {
+                            for (int index = 0; index < pokemonCardApiData.size(); index++) {
+                                PokemonCard pokemonCard = pokemonCardApiData.get(index);
+                                Log.wtf("PokemonSetViewModel", pokemonCard.getTypes() + "");
+                                Log.wtf("PokemonSetViewModel", pokemonCard.getId() + "");
+                                Log.wtf("PokemonSetViewModel", pokemonCard.getName() + "");
+                                Log.wtf("PokemonSetViewModel", pokemonCard.getSupertype() + "");
+                                int percentage = (index+1) * (100/pokemonCardApiData.size());
+//                                publishProgress(percentage);
+                                if (pokemonCard.getSupertype().equalsIgnoreCase("Pokemon")) {
+                                    insertPokemonCard(pokemonCardApiData.get(index).toPokemonCardEntity());
+                                }
+                            }
+                        }
+                    }
+                });
+
+                downloadThread.run();
+
+            }
+
+            @Override
+            public void onFailure(Call<PokemonCardResponse> call, Throwable t) {
+                Log.wtf("Dafuk", String.valueOf(call.request()));
+                Log.wtf("Dafuk", String.valueOf(call.request().body()));
+                Log.wtf("Dafuk", t);
+                Toast.makeText(application, "Something is wrong. I can feel it.", Toast.LENGTH_SHORT);
+            }
+        });
+
     }
 
     public LiveData<List<PokemonSet>> getAllSets() {
@@ -76,6 +123,8 @@ public class PokemonSetViewModel extends AndroidViewModel {
     public void insert(PokemonSet set) {
         mRepository.insertPokemonSet(set);
     }
+
+    public void insertPokemonCard(id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard card) {mRepository.insertPokemonCard(card);}
 
     private boolean isWifiConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);

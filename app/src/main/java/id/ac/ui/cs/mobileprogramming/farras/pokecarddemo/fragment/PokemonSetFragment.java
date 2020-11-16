@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetViewModel;
@@ -22,6 +24,7 @@ import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 import java.util.List;
 
 public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.CardListener {
+    private final String setName = "setName";
     private PokemonSetsAdapter adapter;
     private RecyclerView recyclerView;
     private PokemonSetViewModel mPokemonSetViewModel;
@@ -87,5 +90,11 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
                 + "Set Name : " + theSet.getName() + "\n"
                 + "Total cards:  " + theSet.getTotalCards();
         Toast.makeText(getContext(), toastText, Toast.LENGTH_LONG).show();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(setName, theSet.getName());
+//        NavDirections action = PokemonSetFragmentDirections.actionNavigationSetsToNavigationCards();
+
+        Navigation.findNavController(view).navigate(R.id.action_navigation_sets_to_navigation_cards, bundle);
     }
 }
