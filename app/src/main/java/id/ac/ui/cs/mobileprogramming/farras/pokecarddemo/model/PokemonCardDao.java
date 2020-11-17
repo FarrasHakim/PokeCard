@@ -18,6 +18,6 @@ public interface PokemonCardDao {
     @Query("SELECT * FROM pokemon_card_table WHERE id = :cardId")
     LiveData<PokemonCard> getPokemonCardById(String cardId);
 
-    @Query("SELECT * from pokemon_card_table WHERE `set` = :setName AND subtype = 'Pokemon' ORDER BY id ASC")
+    @Query("SELECT * from pokemon_card_table WHERE `set` = :setName ORDER BY id ASC")
     LiveData<List<PokemonCard>> getPokemonCardsBySet(String setName);
 }

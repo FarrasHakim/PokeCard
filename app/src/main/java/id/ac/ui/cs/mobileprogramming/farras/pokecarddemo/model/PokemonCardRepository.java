@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class PokemonCardRepository {
     }
 
     LiveData<List<PokemonCard>> getPokemonCardsBySetName(String setName) {
+        Log.d("DAO", setName);
         return mPokemonCardDao.getPokemonCardsBySet(setName);
     }
 
@@ -38,7 +40,10 @@ public class PokemonCardRepository {
         new insertSetAsyncTask(mPokemonSetDao).execute(pokemonSet);
     }
 
-    public void insertPokemonCard(PokemonCard pokemonCard) { new insertCardAsyncTask(mPokemonCardDao).execute(pokemonCard); }
+    public void insertPokemonCard(PokemonCard pokemonCard) {
+        Log.wtf("insertPokemonCardRepository", pokemonCard.getName());
+        Log.wtf("insertPokemonCardRepository", pokemonCard.getSet());
+        new insertCardAsyncTask(mPokemonCardDao).execute(pokemonCard); }
 
     private static class insertSetAsyncTask extends AsyncTask<PokemonSet, Void, Void> {
 
@@ -66,6 +71,7 @@ public class PokemonCardRepository {
         @Override
         protected Void doInBackground(final PokemonCard... params) {
             mAsyncTaskDao.insert(params[0]);
+            Log.wtf("cardAsynctask", String.valueOf(params[0]));
             return null;
         }
     }

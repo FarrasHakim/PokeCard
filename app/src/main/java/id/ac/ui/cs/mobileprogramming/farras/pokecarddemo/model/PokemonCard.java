@@ -34,6 +34,103 @@ public class PokemonCard {
     @ColumnInfo(name = "set_code")
     String setCode;
 
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNationalPokedexNumber() {
+        return nationalPokedexNumber;
+    }
+
+    public void setNationalPokedexNumber(String nationalPokedexNumber) {
+        this.nationalPokedexNumber = nationalPokedexNumber;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrlHiRes() {
+        return imageUrlHiRes;
+    }
+
+    public void setImageUrlHiRes(String imageUrlHiRes) {
+        this.imageUrlHiRes = imageUrlHiRes;
+    }
+
+    public String getTypes() {
+        return types;
+    }
+
+    public void setTypes(String types) {
+        this.types = types;
+    }
+
+    public String getSupertype() {
+        return supertype;
+    }
+
+    public void setSupertype(String supertype) {
+        this.supertype = supertype;
+    }
+
+    public String getSubtype() {
+        return subtype;
+    }
+
+    public void setSubtype(String subtype) {
+        this.subtype = subtype;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public String getSet() {
+        return set;
+    }
+
+    public void setSet(String set) {
+        this.set = set;
+    }
+
+    public String getSetCode() {
+        return setCode;
+    }
+
+    public void setSetCode(String setCode) {
+        this.setCode = setCode;
+    }
+
     public PokemonCard(@NonNull String id, String name, String nationalPokedexNumber, String imageUrl, String imageUrlHiRes, String types, String supertype, String subtype, String number, String series, String set, String setCode) {
         this.id = id;
         this.name = name;

@@ -34,7 +34,6 @@ public class PokemonSetViewModel extends AndroidViewModel {
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
         Call<PokemonSetResponse> call = service.getCardSet();
 
-
         call.enqueue(new Callback<PokemonSetResponse>() {
             @Override
             public void onResponse(Call<PokemonSetResponse> call, Response<PokemonSetResponse> response) {
@@ -87,13 +86,13 @@ public class PokemonSetViewModel extends AndroidViewModel {
                         if (pokemonCardApiData.size() > 0) {
                             for (int index = 0; index < pokemonCardApiData.size(); index++) {
                                 PokemonCard pokemonCard = pokemonCardApiData.get(index);
-                                Log.wtf("PokemonSetViewModel", pokemonCard.getTypes() + "");
-                                Log.wtf("PokemonSetViewModel", pokemonCard.getId() + "");
-                                Log.wtf("PokemonSetViewModel", pokemonCard.getName() + "");
-                                Log.wtf("PokemonSetViewModel", pokemonCard.getSupertype() + "");
+//                                Log.wtf("PokemonSetViewModel", pokemonCard.getTypes() + "");
+//                                Log.wtf("PokemonSetViewModel", pokemonCard.getId() + "");
+//                                Log.wtf("PokemonSetViewModel", pokemonCard.getSupertype() + "");
                                 int percentage = (index+1) * (100/pokemonCardApiData.size());
 //                                publishProgress(percentage);
-                                if (pokemonCard.getSupertype().equalsIgnoreCase("Pokemon")) {
+                                if (pokemonCard.getSupertype().equalsIgnoreCase("Pokémon")) {
+//                                  Log.wtf("PokemonSetViewModel", pokemonCard.getName() + "");
                                     insertPokemonCard(pokemonCardApiData.get(index).toPokemonCardEntity());
                                 }
                             }
