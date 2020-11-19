@@ -69,6 +69,7 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
             image = mView.findViewById(R.id.coverImage);
             cardName = mView.findViewById(R.id.setName);
             starIcon = mView.findViewById(R.id.starIcon);
+            clickArea = mView.findViewById(R.id.card_container);
             this.cardListener = cardListener;
 
             starIcon.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,14 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
                     }
                 }
             });
+
+            clickArea.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cardListener.onCardListener(getAdapterPosition(), true, v);
+                }
+            });
+
         }
     }
 

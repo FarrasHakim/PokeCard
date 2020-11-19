@@ -28,6 +28,7 @@ import java.util.List;
 public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.CardListener {
     private final String bundleSetKey = "setName";
     private PokemonCardViewModel mViewModel;
+    private List<PokemonCard> mPokemonCards;
     private String setName;
     private PokemonCardAdapter adapter;
     private RecyclerView recyclerView;
@@ -80,6 +81,7 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
                 public void onChanged(@Nullable final List<PokemonCard> cards) {
                     // Update the cached copy of the words in the adapter.
                     Log.wtf("onChangedObserver", "SetName: " + setName);
+                    mPokemonCards = cards;
                     loadPokemonCardUI(cards);
                 }
             });
@@ -95,11 +97,6 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     private void loadPokemonCardUI(List<PokemonCard> pokemonCards) {
         recyclerView = getView().findViewById(R.id.cardRecyclerView);
         Log.d("loadPokemonCardUI", "Size: " + pokemonCards.size());
-        for (PokemonCard card:pokemonCards) {
-            Log.d("loadPokemonCardUI", card.getName());
-            Log.d("loadPokemonCardUI", card.getNationalPokedexNumber());
-            Log.d("loadPokemonCardUI", card.getSet());
-        }
         adapter = new PokemonCardAdapter(getContext(),this,pokemonCards);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -108,6 +105,13 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
 
     @Override
     public void onCardListener(int position, boolean addClicked, View view) {
-        Log.d("onCardListener", "Position : " + position);
+        PokemonCard pokemonCard = mPokemonCards.get(position);
+        Log.d("onCardListener", "Position : " + position + " Pokemon: " + pokemonCard.getName());
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("pokemon", pokemonCard);
+
+        Navigation.findNavController(view).navigate(R.id.action_navigation_cards_to_navigation_detail, bundle);
+
     }
 }

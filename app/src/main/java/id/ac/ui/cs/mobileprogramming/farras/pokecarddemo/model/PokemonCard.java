@@ -1,12 +1,14 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "pokemon_card_table")
-public class PokemonCard {
+public class PokemonCard implements Parcelable {
     @NonNull
     @PrimaryKey()
     @ColumnInfo(name = "id")
@@ -33,6 +35,33 @@ public class PokemonCard {
     String set;
     @ColumnInfo(name = "set_code")
     String setCode;
+
+    protected PokemonCard(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        nationalPokedexNumber = in.readString();
+        imageUrl = in.readString();
+        imageUrlHiRes = in.readString();
+        types = in.readString();
+        supertype = in.readString();
+        subtype = in.readString();
+        number = in.readString();
+        series = in.readString();
+        set = in.readString();
+        setCode = in.readString();
+    }
+
+    public static final Creator<PokemonCard> CREATOR = new Creator<PokemonCard>() {
+        @Override
+        public PokemonCard createFromParcel(Parcel in) {
+            return new PokemonCard(in);
+        }
+
+        @Override
+        public PokemonCard[] newArray(int size) {
+            return new PokemonCard[size];
+        }
+    };
 
     @NonNull
     public String getId() {
@@ -144,5 +173,26 @@ public class PokemonCard {
         this.series = series;
         this.set = set;
         this.setCode = setCode;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.nationalPokedexNumber);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.imageUrlHiRes);
+        dest.writeString(this.types);
+        dest.writeString(this.supertype);
+        dest.writeString(this.subtype);
+        dest.writeString(this.number);
+        dest.writeString(this.series);
+        dest.writeString(this.set);
+        dest.writeString(this.setCode);
     }
 }

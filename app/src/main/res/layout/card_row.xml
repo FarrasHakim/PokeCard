@@ -7,7 +7,7 @@
 
     <RelativeLayout android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/set_container"
+                    android:id="@+id/card_container"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintEnd_toStartOf="@+id/starIcon" android:layout_marginEnd="12dp">

@@ -1,56 +1,38 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardDao;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PokemonDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PokemonDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    PokemonCard pokemonCard;
+    private ImageView pokemonImage;
+    private TextView cardDetail;
 
     public PokemonDetailFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PokemonDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PokemonDetailFragment newInstance(String param1, String param2) {
-        PokemonDetailFragment fragment = new PokemonDetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if (getArguments() != null && getArguments().getParcelable("pokemon") != null) {
+            pokemonCard = getArguments().getParcelable("pokemon");
         }
     }
 
@@ -59,5 +41,54 @@ public class PokemonDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pokemon_detail, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        pokemonImage = getView().findViewById(R.id.cardImage);
+        cardDetail = getView().findViewById(R.id.cardDetailText);
+
+        String detailText = "Id : " + pokemonCard.getId() + "\n"
+                + "Card Number: " + pokemonCard.getNumber() + "\n"
+                + "Name : " + pokemonCard.getName() + "\n"
+                + "National Pokedex Number:  " + pokemonCard.getNationalPokedexNumber() + "\n"
+                + "Series: " + pokemonCard.getSeries()  + "\n"
+                + "Types: " + pokemonCard.getTypes() + "\n"
+                + "Supertype: " + pokemonCard.getSupertype() + "\n"
+                + "Subtype: " + pokemonCard.getSubtype() + "\n"
+                + "Set: " + pokemonCard.getSet();
+        cardDetail.setText(detailText);
+
+        AsyncTask<String, String, Bitmap> maybeImageBitmap = new setImage(pokemonCard.getImageUrl()).execute(pokemonCard.getImageUrlHiRes());
+
+        try {
+            pokemonImage.setImageBitmap(maybeImageBitmap.get());
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+
+    }
+
+    private static class setImage extends AsyncTask<String, String, Bitmap> {
+
+        private String urlString = null;
+
+        setImage(String urlString) {
+            this.urlString = urlString;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            Bitmap bmp = null;
+            try {
+                URL url = new URL(this.urlString);
+                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                return bmp;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bmp;
+        }
     }
 }
