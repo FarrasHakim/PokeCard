@@ -11,9 +11,4 @@
             android:icon="@drawable/ic_star_filled"
             android:title="@string/favorites_text"/>
 
-    <item
-            android:id="@+id/navigation_deck"
-            android:icon="@drawable/ic_cards"
-            android:title="@string/deck_text"/>
-
 </menu>

@@ -72,7 +72,6 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
         public final View mView;
         private ImageView logoImage;
         private TextView setName;
-        private ImageView starIcon;
         private RelativeLayout clickArea;
         private CardListener cardListener;
 
@@ -81,22 +80,8 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
             mView = itemView;
             logoImage = mView.findViewById(R.id.coverImage);
             setName = mView.findViewById(R.id.setName);
-            starIcon = mView.findViewById(R.id.starIcon);
             clickArea = mView.findViewById(R.id.set_container);
             this.cardListener = cardListener;
-
-            starIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (starIcon.getTag() == null || R.drawable.ic_star_void_dark == (Integer) starIcon.getTag()) {
-                        starIcon.setImageResource(R.drawable.ic_star_filled);
-                        starIcon.setTag(R.drawable.ic_star_filled);
-                    } else {
-                        starIcon.setImageResource(R.drawable.ic_star_void_dark);
-                        starIcon.setTag(R.drawable.ic_star_void_dark);
-                    }
-                }
-            });
 
             clickArea.setOnClickListener(new View.OnClickListener() {
                 @Override

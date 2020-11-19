@@ -2,6 +2,9 @@ package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -10,10 +13,8 @@ public interface ApiInterface {
     @GET("sets")
     Call<PokemonSetResponse> getCardSet();
 
-
     @GET("cards")
-    Call<PokemonCardResponse> getCards();
-
+    Call<PokemonCardResponse> getCards(@Query("page") int page);
 
     @GET("cards/xy7-54")
     Call<PokemonCard> getCardById();

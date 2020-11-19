@@ -3,13 +3,14 @@ package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
 
 @Dao
 public interface PokemonCardDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PokemonCard pokemonCard);
 
     @Query("SELECT * from pokemon_card_table ORDER BY id ASC")

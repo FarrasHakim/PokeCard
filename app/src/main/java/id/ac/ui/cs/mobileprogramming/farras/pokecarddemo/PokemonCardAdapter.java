@@ -34,7 +34,7 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
     @Override
     public PokemonCardAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.set_row, parent, false);
+        View view = layoutInflater.inflate(R.layout.card_row, parent, false);
 
         return new PokemonCardAdapter.CustomViewHolder(view, this.cardListener);
     }
@@ -60,6 +60,7 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
         private PokemonCardAdapter.CardListener cardListener;
         private ImageView image;
         private TextView cardName;
+        private ImageView starIcon;
         private RelativeLayout clickArea;
 
         public CustomViewHolder(final View itemView,final CardListener cardListener) {
@@ -67,7 +68,21 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
             mView = itemView;
             image = mView.findViewById(R.id.coverImage);
             cardName = mView.findViewById(R.id.setName);
+            starIcon = mView.findViewById(R.id.starIcon);
             this.cardListener = cardListener;
+
+            starIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (starIcon.getTag() == null || R.drawable.ic_star_void_dark == (Integer) starIcon.getTag()) {
+                        starIcon.setImageResource(R.drawable.ic_star_filled);
+                        starIcon.setTag(R.drawable.ic_star_filled);
+                    } else {
+                        starIcon.setImageResource(R.drawable.ic_star_void_dark);
+                        starIcon.setTag(R.drawable.ic_star_void_dark);
+                    }
+                }
+            });
         }
     }
 

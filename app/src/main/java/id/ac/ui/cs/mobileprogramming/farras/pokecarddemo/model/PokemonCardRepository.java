@@ -71,7 +71,7 @@ public class PokemonCardRepository {
         @Override
         protected Void doInBackground(final PokemonCard... params) {
             mAsyncTaskDao.insert(params[0]);
-            Log.wtf("cardAsynctask", String.valueOf(params[0]));
+            Log.wtf(params[0].getSet(),  String.valueOf(params[0].getName()));
             return null;
         }
     }
