@@ -4,19 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.fragment.app.Fragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardDao;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PokemonDetailFragment extends Fragment {
@@ -53,7 +49,7 @@ public class PokemonDetailFragment extends Fragment {
                 + "Card Number: " + pokemonCard.getNumber() + "\n"
                 + "Name : " + pokemonCard.getName() + "\n"
                 + "National Pokedex Number:  " + pokemonCard.getNationalPokedexNumber() + "\n"
-                + "Series: " + pokemonCard.getSeries()  + "\n"
+                + "Series: " + pokemonCard.getSeries() + "\n"
                 + "Types: " + pokemonCard.getTypes() + "\n"
                 + "Supertype: " + pokemonCard.getSupertype() + "\n"
                 + "Subtype: " + pokemonCard.getSubtype() + "\n"
@@ -65,7 +61,7 @@ public class PokemonDetailFragment extends Fragment {
         try {
             pokemonImage.setImageBitmap(maybeImageBitmap.get());
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
 
     }

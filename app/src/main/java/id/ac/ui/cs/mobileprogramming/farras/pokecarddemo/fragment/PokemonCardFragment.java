@@ -1,27 +1,22 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
-import android.icu.text.LocaleDisplayNames;
-import android.util.Log;
-import android.widget.Toast;
-import androidx.fragment.app.FragmentFactory;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonCardAdapter;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetsAdapter;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardViewModel;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 
 import java.util.List;
 
@@ -32,10 +27,6 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     private String setName;
     private PokemonCardAdapter adapter;
     private RecyclerView recyclerView;
-
-    public static PokemonCardFragment newInstance() {
-        return new PokemonCardFragment();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +88,7 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     private void loadPokemonCardUI(List<PokemonCard> pokemonCards) {
         recyclerView = getView().findViewById(R.id.cardRecyclerView);
         Log.d("loadPokemonCardUI", "Size: " + pokemonCards.size());
-        adapter = new PokemonCardAdapter(getContext(),this,pokemonCards);
+        adapter = new PokemonCardAdapter(getContext(), this, pokemonCards);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

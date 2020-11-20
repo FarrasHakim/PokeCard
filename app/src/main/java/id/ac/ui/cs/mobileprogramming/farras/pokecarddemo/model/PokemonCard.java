@@ -9,6 +9,17 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "pokemon_card_table")
 public class PokemonCard implements Parcelable {
+    public static final Creator<PokemonCard> CREATOR = new Creator<PokemonCard>() {
+        @Override
+        public PokemonCard createFromParcel(Parcel in) {
+            return new PokemonCard(in);
+        }
+
+        @Override
+        public PokemonCard[] newArray(int size) {
+            return new PokemonCard[size];
+        }
+    };
     @NonNull
     @PrimaryKey()
     @ColumnInfo(name = "id")
@@ -35,6 +46,8 @@ public class PokemonCard implements Parcelable {
     String set;
     @ColumnInfo(name = "set_code")
     String setCode;
+    @ColumnInfo(name = "is_favorite")
+    Boolean isFavorite;
 
     protected PokemonCard(Parcel in) {
         id = in.readString();
@@ -51,17 +64,21 @@ public class PokemonCard implements Parcelable {
         setCode = in.readString();
     }
 
-    public static final Creator<PokemonCard> CREATOR = new Creator<PokemonCard>() {
-        @Override
-        public PokemonCard createFromParcel(Parcel in) {
-            return new PokemonCard(in);
-        }
-
-        @Override
-        public PokemonCard[] newArray(int size) {
-            return new PokemonCard[size];
-        }
-    };
+    public PokemonCard(@NonNull String id, String name, String nationalPokedexNumber, String imageUrl, String imageUrlHiRes, String types, String supertype, String subtype, String number, String series, String set, String setCode, Boolean isFavorite) {
+        this.id = id;
+        this.name = name;
+        this.nationalPokedexNumber = nationalPokedexNumber;
+        this.imageUrl = imageUrl;
+        this.imageUrlHiRes = imageUrlHiRes;
+        this.types = types;
+        this.supertype = supertype;
+        this.subtype = subtype;
+        this.number = number;
+        this.series = series;
+        this.set = set;
+        this.setCode = setCode;
+        this.isFavorite = isFavorite;
+    }
 
     @NonNull
     public String getId() {
@@ -157,21 +174,6 @@ public class PokemonCard implements Parcelable {
     }
 
     public void setSetCode(String setCode) {
-        this.setCode = setCode;
-    }
-
-    public PokemonCard(@NonNull String id, String name, String nationalPokedexNumber, String imageUrl, String imageUrlHiRes, String types, String supertype, String subtype, String number, String series, String set, String setCode) {
-        this.id = id;
-        this.name = name;
-        this.nationalPokedexNumber = nationalPokedexNumber;
-        this.imageUrl = imageUrl;
-        this.imageUrlHiRes = imageUrlHiRes;
-        this.types = types;
-        this.supertype = supertype;
-        this.subtype = subtype;
-        this.number = number;
-        this.series = series;
-        this.set = set;
         this.setCode = setCode;
     }
 

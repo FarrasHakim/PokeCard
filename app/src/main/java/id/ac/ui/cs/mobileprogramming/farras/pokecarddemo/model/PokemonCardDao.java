@@ -21,4 +21,7 @@ public interface PokemonCardDao {
 
     @Query("SELECT * from pokemon_card_table WHERE `set` = :setName ORDER BY id ASC")
     LiveData<List<PokemonCard>> getPokemonCardsBySet(String setName);
+
+    @Query("SELECT * from pokemon_card_table WHERE `is_favorite` = 1 ORDER BY id ASC")
+    LiveData<List<PokemonCard>> getFavoriteCards();
 }

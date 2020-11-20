@@ -1,11 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;

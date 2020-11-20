@@ -1,32 +1,27 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragmentDirections;
 
 import java.util.List;
 
-public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.CustomViewHolder>{
+public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.CustomViewHolder> {
+    private final Context context;
+    private final CardListener cardListener;
     private List<PokemonSet> pokemonSets;
-    private Context context;
-    private CardListener cardListener;
 
-    public PokemonSetsAdapter(Context appContext,PokemonSetFragment cardListener, List<PokemonSet> pokemonSets) {
+    public PokemonSetsAdapter(Context appContext, PokemonSetFragment cardListener, List<PokemonSet> pokemonSets) {
         this.pokemonSets = pokemonSets;
         this.cardListener = cardListener;
         this.context = appContext;
@@ -54,10 +49,10 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
 
     @Override
     public int getItemCount() {
-            return pokemonSets != null ? pokemonSets.size() : 0;
+        return pokemonSets != null ? pokemonSets.size() : 0;
     }
 
-    public void setPokemonSet(List<PokemonSet> pokemonSets){
+    public void setPokemonSet(List<PokemonSet> pokemonSets) {
         this.pokemonSets = pokemonSets;
         notifyDataSetChanged();
     }
@@ -67,13 +62,17 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
     }
 
 
+    public interface CardListener {
+        void onCardListener(int position, boolean addClicked, View view);
+    }
+
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-        private ImageView logoImage;
-        private TextView setName;
-        private RelativeLayout clickArea;
-        private CardListener cardListener;
+        private final ImageView logoImage;
+        private final TextView setName;
+        private final RelativeLayout clickArea;
+        private final CardListener cardListener;
 
         CustomViewHolder(final View itemView, final CardListener cardListener) {
             super(itemView);
@@ -91,10 +90,6 @@ public class PokemonSetsAdapter extends RecyclerView.Adapter<PokemonSetsAdapter.
             });
 
         }
-    }
-
-    public interface CardListener{
-        void onCardListener(int position, boolean addClicked, View view);
     }
 
 }

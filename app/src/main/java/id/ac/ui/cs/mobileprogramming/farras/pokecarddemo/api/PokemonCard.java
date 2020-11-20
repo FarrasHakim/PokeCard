@@ -35,7 +35,7 @@ public class PokemonCard {
         String typesStr = "";
         Log.d("CardApi", name);
         if (types != null) {
-            for (String type: types) {
+            for (String type : types) {
                 typesStr += type + ",";
             }
         } else {
@@ -53,7 +53,8 @@ public class PokemonCard {
                 number,
                 series,
                 set,
-                setCode
+                setCode,
+                false
         );
     }
 

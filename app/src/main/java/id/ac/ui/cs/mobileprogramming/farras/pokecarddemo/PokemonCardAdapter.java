@@ -12,19 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonCardFragment;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.CustomViewHolder> {
-    private List<PokemonCard> pokemonCards;
-    private Context context;
-    private CardListener cardListener;
+    private final List<PokemonCard> pokemonCards;
+    private final Context context;
+    private final CardListener cardListener;
 
-    public PokemonCardAdapter(Context context, PokemonCardFragment cardListener , List<PokemonCard> pokemonCards) {
+    public PokemonCardAdapter(Context context, PokemonCardFragment cardListener, List<PokemonCard> pokemonCards) {
         this.pokemonCards = pokemonCards;
         this.context = context;
         this.cardListener = cardListener;
@@ -55,15 +52,19 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
         return pokemonCards != null ? pokemonCards.size() : 0;
     }
 
+    public interface CardListener {
+        void onCardListener(int position, boolean addClicked, View view);
+    }
+
     class CustomViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        private PokemonCardAdapter.CardListener cardListener;
-        private ImageView image;
-        private TextView cardName;
-        private ImageView starIcon;
-        private RelativeLayout clickArea;
+        private final PokemonCardAdapter.CardListener cardListener;
+        private final ImageView image;
+        private final TextView cardName;
+        private final ImageView starIcon;
+        private final RelativeLayout clickArea;
 
-        public CustomViewHolder(final View itemView,final CardListener cardListener) {
+        public CustomViewHolder(final View itemView, final CardListener cardListener) {
             super(itemView);
             mView = itemView;
             image = mView.findViewById(R.id.coverImage);
@@ -93,9 +94,5 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
             });
 
         }
-    }
-
-    public interface CardListener{
-        void onCardListener(int position, boolean addClicked, View view);
     }
 }

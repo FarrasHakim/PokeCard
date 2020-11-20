@@ -8,10 +8,10 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class PokemonCardRepository {
-    private PokemonCardDao mPokemonCardDao;
-    private PokemonSetDao mPokemonSetDao;
-    private LiveData<List<PokemonCard>> mAllPokemonCards;
-    private LiveData<List<PokemonSet>> mAllPokemonSets;
+    private final PokemonCardDao mPokemonCardDao;
+    private final PokemonSetDao mPokemonSetDao;
+    private final LiveData<List<PokemonCard>> mAllPokemonCards;
+    private final LiveData<List<PokemonSet>> mAllPokemonSets;
 
     public PokemonCardRepository(Application application) {
         PokemonRoomDatabase db = PokemonRoomDatabase.getDatabase(application);
@@ -34,7 +34,9 @@ public class PokemonCardRepository {
         return mPokemonCardDao.getPokemonCardById(id);
     }
 
-    public LiveData<List<PokemonSet>> getAllPokemonSets() { return mAllPokemonSets; }
+    public LiveData<List<PokemonSet>> getAllPokemonSets() {
+        return mAllPokemonSets;
+    }
 
     public void insertPokemonSet(PokemonSet pokemonSet) {
         new insertSetAsyncTask(mPokemonSetDao).execute(pokemonSet);
@@ -43,11 +45,16 @@ public class PokemonCardRepository {
     public void insertPokemonCard(PokemonCard pokemonCard) {
         Log.wtf("insertPokemonCardRepository", pokemonCard.getName());
         Log.wtf("insertPokemonCardRepository", pokemonCard.getSet());
-        new insertCardAsyncTask(mPokemonCardDao).execute(pokemonCard); }
+        new insertCardAsyncTask(mPokemonCardDao).execute(pokemonCard);
+    }
+
+    public LiveData<List<PokemonCard>> getFavoriteCards() {
+        return mPokemonCardDao.getFavoriteCards();
+    }
 
     private static class insertSetAsyncTask extends AsyncTask<PokemonSet, Void, Void> {
 
-        private PokemonSetDao mAsyncTaskDao;
+        private final PokemonSetDao mAsyncTaskDao;
 
         insertSetAsyncTask(PokemonSetDao dao) {
             mAsyncTaskDao = dao;
@@ -62,7 +69,7 @@ public class PokemonCardRepository {
 
     private static class insertCardAsyncTask extends AsyncTask<PokemonCard, Void, Void> {
 
-        private PokemonCardDao mAsyncTaskDao;
+        private final PokemonCardDao mAsyncTaskDao;
 
         insertCardAsyncTask(PokemonCardDao dao) {
             mAsyncTaskDao = dao;
@@ -71,7 +78,7 @@ public class PokemonCardRepository {
         @Override
         protected Void doInBackground(final PokemonCard... params) {
             mAsyncTaskDao.insert(params[0]);
-            Log.wtf(params[0].getSet(),  String.valueOf(params[0].getName()));
+            Log.wtf(params[0].getSet(), String.valueOf(params[0].getName()));
             return null;
         }
     }

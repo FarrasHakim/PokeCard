@@ -17,19 +17,19 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSetViewModel;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetsAdapter;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSetViewModel;
 
 import java.util.List;
 
 public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.CardListener {
     private final String setName = "setName";
+    ProgressDialog progressDialog;
     private PokemonSetsAdapter adapter;
     private RecyclerView recyclerView;
     private PokemonSetViewModel mPokemonSetViewModel;
-    ProgressDialog progressDialog;
     private ProgressBar progressBar;
     private Button buttonView;
     private View mView;
@@ -40,12 +40,35 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("SetFragment", "onCreate");    }
+        Log.d("SetFragment", "onCreate");
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d("SetFragment", "OnResume");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.pokemon_set_fragment, container, false);
+        this.mView = root;
+
+        progressBar = mView.findViewById(R.id.progressBar);
+        progressDialog = new ProgressDialog(getActivity());
+        progressBar.setVisibility(View.INVISIBLE);
+        buttonView = mView.findViewById(R.id.syncButton);
+        mPokemonSetViewModel = ViewModelProviders.of(this).get(PokemonSetViewModel.class);
+        buttonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syncDb(v);
+            }
+        });
+
+        return root;
     }
 
     @Override
@@ -61,28 +84,6 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
         });
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View root = inflater.inflate(R.layout.pokemon_set_fragment, container, false);
-        this.mView = root;
-
-        progressBar = (ProgressBar) mView.findViewById(R.id.progressBar);
-        progressDialog = new ProgressDialog(getActivity());
-        progressBar.setVisibility(View.INVISIBLE);
-        buttonView = (Button) mView.findViewById(R.id.syncButton);
-        mPokemonSetViewModel = ViewModelProviders.of(this).get(PokemonSetViewModel.class);
-        buttonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syncDb(v);
-            }
-        });
-
-
-        return root;
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
 
     private void loadPokemonSetUI(List<PokemonSet> pokemonSets) {
         recyclerView = getView().findViewById(R.id.customRecyclerView);
-        adapter = new PokemonSetsAdapter(getContext(),this,pokemonSets);
+        adapter = new PokemonSetsAdapter(getContext(), this, pokemonSets);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
