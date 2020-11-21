@@ -47,7 +47,7 @@ public class CounterService extends Service {
         intent.putExtra("counter", counterText);
         sendBroadcast(intent);
 
-    }//end Update Timer
+    }
 
     private Runnable startCounter = new Runnable() {
         @Override

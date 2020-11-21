@@ -14,4 +14,9 @@
     <string name="retrofit_error">Ada yang salah gan</string>
     <string name="added_to_favorites">" ditambahkan ke favorit."</string>
     <string name="no_wifi_text">Tidak ada koneksi wifi</string>
+    <string name="counter">Counter</string>
+    <string name="a_random_feature_lmao">Fitur random wkwkwk</string>
+    <string name="start_text">Mulai</string>
+    <string name="stop_text">Berhenti</string>
+    <string name="reset_text">Ulang</string>
 </resources>

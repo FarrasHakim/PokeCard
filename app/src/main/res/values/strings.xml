@@ -17,7 +17,7 @@
     <string name="no_wifi_text">No Wifi Connection</string>
     <string name="counter">Counter</string>
     <string name="a_random_feature_lmao">A random feature lmao</string>
-    <string name="zero_num">0</string>
+    <string name="zero_num" translatable="false">0</string>
     <string name="start_text">Start</string>
     <string name="stop_text">Stop</string>
     <string name="reset_text">Reset</string>
