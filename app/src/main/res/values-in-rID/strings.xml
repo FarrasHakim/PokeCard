@@ -19,4 +19,5 @@
     <string name="start_text">Mulai</string>
     <string name="stop_text">Berhenti</string>
     <string name="reset_text">Ulang</string>
+    <string name="syncing">Menyinkron...</string>
 </resources>
