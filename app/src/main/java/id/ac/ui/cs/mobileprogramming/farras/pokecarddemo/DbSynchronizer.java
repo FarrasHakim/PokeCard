@@ -45,8 +45,6 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
                         // Insert Data
                         if (pokemonSetApiData.size() > 0) {
                             for (int index = 0; index < pokemonSetApiData.size(); index++) {
-                                int percentage = (index + 1) * (100 / pokemonSetApiData.size());
-//                                publishProgress(percentage);
                                 mPokemonCardRepository.insertPokemonSet(pokemonSetApiData.get(index).toPokemonSetEntity());
                             }
                         }
@@ -75,10 +73,8 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
                             if (pokemonCardApiData.size() > 0) {
                                 for (int index = 0; index < pokemonCardApiData.size(); index++) {
                                     id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonCard pokemonCard = pokemonCardApiData.get(index);
-                                    int percentage = (index + 1) * (100 / pokemonCardApiData.size());
-//                                publishProgress(percentage);
                                     if (pokemonCardApiData.get(index).getSupertype().equalsIgnoreCase("Pokémon")) {
-                                        mPokemonCardRepository.insertPokemonCard(pokemonCardApiData.get(index).toPokemonCardEntity());
+                                        mPokemonCardRepository.insertPokemonCard(pokemonCard.toPokemonCardEntity());
                                     }
                                 }
                             }
