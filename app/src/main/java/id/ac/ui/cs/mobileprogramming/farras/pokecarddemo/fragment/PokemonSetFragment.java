@@ -17,10 +17,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonSetsAdapter;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter.PokemonSetsAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSetViewModel;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.viewModel.PokemonSetViewModel;
 
 import java.util.List;
 
@@ -117,15 +117,9 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
     @Override
     public void onCardListener(int position, boolean addClicked, View view) {
         PokemonSet theSet = adapter.getPokemonSetAt(position);
-        String toastText = "Card " + position + "clicked" + "\n"
-                + "Set code :" + theSet.getId() + "\n"
-                + "Set Name : " + theSet.getName() + "\n"
-                + "Total cards:  " + theSet.getTotalCards();
-        Toast.makeText(getContext(), toastText, Toast.LENGTH_LONG).show();
 
         Bundle bundle = new Bundle();
         bundle.putString(setName, theSet.getName());
-//        NavDirections action = PokemonSetFragmentDirections.actionNavigationSetsToNavigationCards();
 
         Navigation.findNavController(view).navigate(R.id.action_navigation_sets_to_navigation_cards, bundle);
     }

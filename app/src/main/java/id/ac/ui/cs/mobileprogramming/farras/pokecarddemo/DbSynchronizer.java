@@ -16,7 +16,6 @@ import java.util.List;
 public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
     //    private WeakReference<Button> buttonView;
 //    private WeakReference<ProgressBar> progressBar;
-//    private final PokemonSetDao mPokemonSetDao;
     private final PokemonCardRepository mPokemonCardRepository;
     Context application;
     private List<PokemonSet> pokemonSetApiData;

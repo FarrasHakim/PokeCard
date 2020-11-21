@@ -49,6 +49,14 @@ public class PokemonCard implements Parcelable {
     @ColumnInfo(name = "is_favorite")
     Boolean isFavorite;
 
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
+    }
+
     protected PokemonCard(Parcel in) {
         id = in.readString();
         name = in.readString();

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
+package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.FavoriteCardFragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
 
 import java.util.List;
@@ -17,19 +19,21 @@ import java.util.List;
 public class PokemonFavoriteAdapter extends RecyclerView.Adapter<PokemonFavoriteAdapter.CustomViewHolder> {
     List<PokemonCard> favoriteCards;
     Context context;
+    CardListener cardListener;
 
-    public PokemonFavoriteAdapter(Context context, List<PokemonCard> pokemonCards) {
+    public PokemonFavoriteAdapter(Context context, FavoriteCardFragment cardListener, List<PokemonCard> pokemonCards) {
         this.context = context;
         favoriteCards = pokemonCards;
+        this.cardListener = cardListener;
     }
 
     @NonNull
     @Override
     public PokemonFavoriteAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.set_row, parent, false);
+        View view = layoutInflater.inflate(R.layout.favorite_row, parent, false);
 
-        return new CustomViewHolder(view);
+        return new CustomViewHolder(view, cardListener);
     }
 
     @Override
@@ -51,11 +55,26 @@ public class PokemonFavoriteAdapter extends RecyclerView.Adapter<PokemonFavorite
     class CustomViewHolder extends RecyclerView.ViewHolder {
         private final ImageView image;
         private final TextView cardName;
+        private final ImageView deleteIcon;
+        private CardListener cardListener;
 
-        public CustomViewHolder(@NonNull View itemView) {
+        public CustomViewHolder(@NonNull View itemView, final CardListener cardListener) {
             super(itemView);
             image = itemView.findViewById(R.id.coverImage);
-            cardName = itemView.findViewById(R.id.setName);
+            cardName = itemView.findViewById(R.id.cardName);
+            deleteIcon = itemView.findViewById(R.id.deleteIcon);
+            this.cardListener = cardListener;
+
+            deleteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cardListener.onCardListener(getAdapterPosition(), true, v);
+                }
+            });
         }
+    }
+
+    public interface CardListener {
+        void onCardListener(int position, boolean addClicked, View view);
     }
 }

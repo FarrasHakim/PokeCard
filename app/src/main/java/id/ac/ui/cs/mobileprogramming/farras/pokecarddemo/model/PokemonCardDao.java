@@ -24,4 +24,10 @@ public interface PokemonCardDao {
 
     @Query("SELECT * from pokemon_card_table WHERE `is_favorite` = 1 ORDER BY id ASC")
     LiveData<List<PokemonCard>> getFavoriteCards();
+
+    @Query("UPDATE pokemon_card_table SET is_favorite=1 WHERE id = :cardId")
+    void addCardToFavorites(String cardId);
+
+    @Query("UPDATE pokemon_card_table SET is_favorite=0 WHERE id = :cardId")
+    void removeCardFromFavorites(String cardId);
 }

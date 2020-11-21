@@ -1,6 +1,7 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
+package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonCardFragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
 
@@ -56,7 +58,7 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
         void onCardListener(int position, boolean addClicked, View view);
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
+    class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
         private final PokemonCardAdapter.CardListener cardListener;
         private final ImageView image;
@@ -73,26 +75,18 @@ public class PokemonCardAdapter extends RecyclerView.Adapter<PokemonCardAdapter.
             clickArea = mView.findViewById(R.id.card_container);
             this.cardListener = cardListener;
 
-            starIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (starIcon.getTag() == null || R.drawable.ic_star_void_dark == (Integer) starIcon.getTag()) {
-                        starIcon.setImageResource(R.drawable.ic_star_filled);
-                        starIcon.setTag(R.drawable.ic_star_filled);
-                    } else {
-                        starIcon.setImageResource(R.drawable.ic_star_void_dark);
-                        starIcon.setTag(R.drawable.ic_star_void_dark);
-                    }
-                }
-            });
+            starIcon.setOnClickListener(this);
+            clickArea.setOnClickListener(this);
+        }
 
-            clickArea.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cardListener.onCardListener(getAdapterPosition(), true, v);
-                }
-            });
-
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == starIcon.getId()) {
+                starIcon.setImageResource(R.drawable.ic_star_filled);
+                cardListener.onCardListener(getAdapterPosition(), false, v);
+            } else {
+                cardListener.onCardListener(getAdapterPosition(), true, itemView);
+            }
         }
     }
 }

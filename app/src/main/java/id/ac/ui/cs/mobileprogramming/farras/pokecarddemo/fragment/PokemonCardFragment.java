@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,10 +14,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.PokemonCardAdapter;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter.PokemonCardAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardViewModel;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.viewModel.PokemonCardViewModel;
 
 import java.util.List;
 
@@ -97,12 +98,19 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     @Override
     public void onCardListener(int position, boolean addClicked, View view) {
         PokemonCard pokemonCard = mPokemonCards.get(position);
+
         Log.d("onCardListener", "Position : " + position + " Pokemon: " + pokemonCard.getName());
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("pokemon", pokemonCard);
+        // ClickArea
+        if (addClicked) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("pokemon", pokemonCard);
 
-        Navigation.findNavController(view).navigate(R.id.action_navigation_cards_to_navigation_detail, bundle);
-
+            Navigation.findNavController(view).navigate(R.id.action_navigation_cards_to_navigation_detail, bundle);
+        } else {
+            // Favorite
+            Toast.makeText(getContext(), pokemonCard.getName() + " added to favorites.", Toast.LENGTH_LONG).show();
+            mViewModel.addCardToFavorites(pokemonCard.getId());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
+package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.PokemonSetFragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model;
+package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.viewModel;
 
 import android.app.Application;
 import android.content.Context;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.DbSynchronizer;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardRepository;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 
 import java.util.List;
 

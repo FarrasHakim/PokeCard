@@ -21,11 +21,11 @@ public class PokemonCardRepository {
         mAllPokemonSets = mPokemonSetDao.getAllSets();
     }
 
-    LiveData<List<PokemonCard>> getAllPokemonCards() {
+    public LiveData<List<PokemonCard>> getAllPokemonCards() {
         return mAllPokemonCards;
     }
 
-    LiveData<List<PokemonCard>> getPokemonCardsBySetName(String setName) {
+    public LiveData<List<PokemonCard>> getPokemonCardsBySetName(String setName) {
         Log.d("DAO", setName);
         return mPokemonCardDao.getPokemonCardsBySet(setName);
     }
@@ -50,6 +50,14 @@ public class PokemonCardRepository {
 
     public LiveData<List<PokemonCard>> getFavoriteCards() {
         return mPokemonCardDao.getFavoriteCards();
+    }
+
+    public void addCardToFavorites(String cardId) {
+        new updateFavoriteCard(mPokemonCardDao,true).execute(cardId);
+    }
+
+    public void removeCardFromFavorites(String id) {
+        new updateFavoriteCard(mPokemonCardDao, false).execute(id);
     }
 
     private static class insertSetAsyncTask extends AsyncTask<PokemonSet, Void, Void> {
@@ -79,6 +87,27 @@ public class PokemonCardRepository {
         protected Void doInBackground(final PokemonCard... params) {
             mAsyncTaskDao.insert(params[0]);
             Log.wtf(params[0].getSet(), String.valueOf(params[0].getName()));
+            return null;
+        }
+    }
+
+    private static class updateFavoriteCard extends AsyncTask<String, Void, Void> {
+
+        private final PokemonCardDao mAsyncTaskDao;
+        private final Boolean isAddingToFavorites;
+
+        updateFavoriteCard(PokemonCardDao dao, Boolean isAddingToFavorites) {
+            mAsyncTaskDao = dao;
+            this.isAddingToFavorites = isAddingToFavorites;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            if (isAddingToFavorites) {
+                mAsyncTaskDao.addCardToFavorites(strings[0]);
+            } else {
+                mAsyncTaskDao.removeCardFromFavorites(strings[0]);
+            }
             return null;
         }
     }
