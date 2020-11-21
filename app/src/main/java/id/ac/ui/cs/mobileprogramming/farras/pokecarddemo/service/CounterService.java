@@ -46,7 +46,6 @@ public class CounterService extends Service {
         counterText = String.valueOf(counter);
         intent.putExtra("counter", counterText);
         sendBroadcast(intent);
-
     }
 
     private Runnable startCounter = new Runnable() {

@@ -101,14 +101,14 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
         progressDialog.setMessage("Syncing....");
         progressDialog.show();
         Log.wtf("DAFUQ", view.getClass().getCanonicalName());
-        buttonView.setText("Syncing...");
+        buttonView.setText(R.string.syncing);
         buttonView.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 //        new DbSynchronizer(buttonView, progressBar, this).execute();
         Log.wtf("DAFUQ", "After sync db");
         mPokemonSetViewModel.syncDb();
         progressDialog.dismiss();
-        buttonView.setText("Sync");
+        buttonView.setText(getString(R.string.sync));
         buttonView.setEnabled(true);
         progressBar.setVisibility(View.INVISIBLE);
     }
