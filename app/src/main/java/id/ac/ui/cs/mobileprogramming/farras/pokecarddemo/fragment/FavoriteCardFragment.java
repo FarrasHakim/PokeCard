@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter.PokemonCardAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter.PokemonFavoriteAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.viewModel.PokemonCardViewModel;

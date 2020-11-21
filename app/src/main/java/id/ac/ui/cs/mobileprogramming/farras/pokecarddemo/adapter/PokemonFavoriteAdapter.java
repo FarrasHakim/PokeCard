@@ -52,11 +52,15 @@ public class PokemonFavoriteAdapter extends RecyclerView.Adapter<PokemonFavorite
         return favoriteCards != null ? favoriteCards.size() : 0;
     }
 
+    public interface CardListener {
+        void onCardListener(int position, boolean addClicked, View view);
+    }
+
     class CustomViewHolder extends RecyclerView.ViewHolder {
         private final ImageView image;
         private final TextView cardName;
         private final ImageView deleteIcon;
-        private CardListener cardListener;
+        private final CardListener cardListener;
 
         public CustomViewHolder(@NonNull View itemView, final CardListener cardListener) {
             super(itemView);
@@ -72,9 +76,5 @@ public class PokemonFavoriteAdapter extends RecyclerView.Adapter<PokemonFavorite
                 }
             });
         }
-    }
-
-    public interface CardListener {
-        void onCardListener(int position, boolean addClicked, View view);
     }
 }

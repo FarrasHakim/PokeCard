@@ -53,7 +53,7 @@ public class PokemonCardRepository {
     }
 
     public void addCardToFavorites(String cardId) {
-        new updateFavoriteCard(mPokemonCardDao,true).execute(cardId);
+        new updateFavoriteCard(mPokemonCardDao, true).execute(cardId);
     }
 
     public void removeCardFromFavorites(String id) {

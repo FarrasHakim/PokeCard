@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter.PokemonCardAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.adapter.PokemonCardAdapter;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.viewModel.PokemonCardViewModel;
 
@@ -98,8 +98,6 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     @Override
     public void onCardListener(int position, boolean addClicked, View view) {
         PokemonCard pokemonCard = mPokemonCards.get(position);
-
-        Log.d("onCardListener", "Position : " + position + " Pokemon: " + pokemonCard.getName());
 
         // ClickArea
         if (addClicked) {
