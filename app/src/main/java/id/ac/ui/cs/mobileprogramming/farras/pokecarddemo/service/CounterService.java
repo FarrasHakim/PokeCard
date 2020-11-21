@@ -7,14 +7,20 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 public class CounterService extends Service {
-    private final static String TAG = "CounterService";
     public static final String COUNTER_BR = "id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.service";
-    Intent intent = new Intent(COUNTER_BR);
-
+    private final static String TAG = "CounterService";
     private final int REFRESH_RATE = 100;
-    private Handler mHandler = new Handler();
+    Intent intent = new Intent(COUNTER_BR);
+    private final Handler mHandler = new Handler();
     private long counter;
-    private String counterText;
+    private final Runnable startCounter = new Runnable() {
+        @Override
+        public void run() {
+            counter += 1;
+            updateCounter(counter);
+            mHandler.postDelayed(this, REFRESH_RATE);
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -42,18 +48,8 @@ public class CounterService extends Service {
         return null;
     }
 
-    private void updateCounter (float counter){
-        counterText = String.valueOf(counter);
-        intent.putExtra("counter", counterText);
+    private void updateCounter(float counter) {
+        intent.putExtra("counter", String.valueOf(counter));
         sendBroadcast(intent);
     }
-
-    private Runnable startCounter = new Runnable() {
-        @Override
-        public void run() {
-            counter += 1;
-            updateCounter(counter);
-            mHandler.postDelayed(this, REFRESH_RATE);
-        }
-    };
 }

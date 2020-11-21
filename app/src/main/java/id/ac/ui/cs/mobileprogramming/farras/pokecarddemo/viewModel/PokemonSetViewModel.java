@@ -1,6 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.viewModel;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,9 +29,9 @@ public class PokemonSetViewModel extends AndroidViewModel {
         mAllSets = mRepository.getAllPokemonSets();
     }
 
-    public void syncDb() {
+    public void syncDb(ProgressDialog progressDialog) {
         if (isWifiConnected()) {
-            new DbSynchronizer(mRepository, application).execute();
+            new DbSynchronizer(mRepository, application, progressDialog).execute();
         } else {
             Toast.makeText(application,
                     R.string.no_wifi_text,
@@ -40,14 +41,6 @@ public class PokemonSetViewModel extends AndroidViewModel {
 
     public LiveData<List<PokemonSet>> getAllSets() {
         return mAllSets;
-    }
-
-    public void insert(PokemonSet set) {
-        mRepository.insertPokemonSet(set);
-    }
-
-    public void insertPokemonCard(id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCard card) {
-        mRepository.insertPokemonCard(card);
     }
 
     private boolean isWifiConnected() {

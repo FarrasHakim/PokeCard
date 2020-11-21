@@ -46,7 +46,7 @@
 
     <fragment
             android:id="@+id/navigation_counter"
-            android:name="id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.CounterFragment"
+            android:name="id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment.CounterFragment"
             android:label="@string/counter"
             tools:layout="@layout/fragment_counter">
         <action android:id="@+id/action_navigation_counter_to_navigation_sets" app:destination="@id/navigation_sets"/>

@@ -1,21 +1,28 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
+package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.fragment.app.Fragment;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.service.CounterService;
 
 public class CounterFragment extends Fragment {
     TextView counterTextView;
     Button buttonStart, buttonStop, buttonReset;
+    private final BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUI(intent);
+        }
+    };
 
     public static CounterFragment newInstance(String param1, String param2) {
         CounterFragment fragment = new CounterFragment();
@@ -73,15 +80,6 @@ public class CounterFragment extends Fragment {
         super.onResume();
         requireActivity().registerReceiver(br, new IntentFilter(CounterService.COUNTER_BR));
     }
-
-    private BroadcastReceiver br = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateUI(intent);
-        }
-    };
-
-
 
     private void updateUI(Intent intent) {
         if (intent.getExtras() != null) {

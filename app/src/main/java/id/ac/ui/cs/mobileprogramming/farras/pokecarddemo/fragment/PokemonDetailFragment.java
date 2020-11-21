@@ -1,9 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,22 +58,30 @@ public class PokemonDetailFragment extends Fragment {
                 + "Set: " + pokemonCard.getSet();
         cardDetail.setText(detailText);
 
-        AsyncTask<String, String, Bitmap> maybeImageBitmap = new setImage(pokemonCard.getImageUrl()).execute(pokemonCard.getImageUrlHiRes());
-
-        try {
-            pokemonImage.setImageBitmap(maybeImageBitmap.get());
-        } catch (Exception e) {
-            e.printStackTrace();
+        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getActivity().getString(R.string.syncing));
+        progressDialog.show();
+        Log.d("DetailFragment", String.valueOf(progressDialog.isShowing()));
+        if (progressDialog.isShowing()) {
+            AsyncTask<String, String, Bitmap> maybeImageBitmap = new setImage(pokemonCard.getImageUrl(), progressDialog).execute(pokemonCard.getImageUrlHiRes());
+            try {
+                pokemonImage.setImageBitmap(maybeImageBitmap.get());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
 
     }
 
     private static class setImage extends AsyncTask<String, String, Bitmap> {
 
-        private String urlString = null;
+        private final String urlString;
+        private final ProgressDialog progressDialog;
 
-        setImage(String urlString) {
+        setImage(String urlString, ProgressDialog progressDialog) {
             this.urlString = urlString;
+            this.progressDialog = progressDialog;
         }
 
         @Override
@@ -85,6 +95,12 @@ public class PokemonDetailFragment extends Fragment {
                 e.printStackTrace();
             }
             return bmp;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            this.progressDialog.dismiss();
         }
     }
 }

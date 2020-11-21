@@ -2,12 +2,10 @@ package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,23 +27,17 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
     private PokemonSetsAdapter adapter;
     private RecyclerView recyclerView;
     private PokemonSetViewModel mPokemonSetViewModel;
-    private ProgressBar progressBar;
     private Button buttonView;
     private View mView;
-
-    public PokemonSetFragment() {
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("SetFragment", "onCreate");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("SetFragment", "OnResume");
     }
 
     @Nullable
@@ -55,9 +47,7 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
         View root = inflater.inflate(R.layout.pokemon_set_fragment, container, false);
         this.mView = root;
 
-        progressBar = mView.findViewById(R.id.progressBar);
         progressDialog = new ProgressDialog(getActivity());
-        progressBar.setVisibility(View.INVISIBLE);
         buttonView = mView.findViewById(R.id.syncButton);
         mPokemonSetViewModel = ViewModelProviders.of(this).get(PokemonSetViewModel.class);
         buttonView.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +63,6 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.d("SetFragment", "ViewStateResrotered");
         mPokemonSetViewModel.getAllSets().observe(getViewLifecycleOwner(), new Observer<List<PokemonSet>>() {
             @Override
             public void onChanged(@Nullable final List<PokemonSet> sets) {
@@ -98,19 +87,9 @@ public class PokemonSetFragment extends Fragment implements PokemonSetsAdapter.C
     }
 
     public void syncDb(View view) {
-        progressDialog.setMessage("Syncing....");
-        progressDialog.show();
-        Log.wtf("DAFUQ", view.getClass().getCanonicalName());
-        buttonView.setText(R.string.syncing);
         buttonView.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE);
-//        new DbSynchronizer(buttonView, progressBar, this).execute();
-        Log.wtf("DAFUQ", "After sync db");
-        mPokemonSetViewModel.syncDb();
-        progressDialog.dismiss();
-        buttonView.setText(getString(R.string.sync));
+        mPokemonSetViewModel.syncDb(progressDialog);
         buttonView.setEnabled(true);
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

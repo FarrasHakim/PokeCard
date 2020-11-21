@@ -1,7 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,27 +31,22 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.wtf(bundleSetKey, String.valueOf(getArguments()));
-        Log.wtf(bundleSetKey, String.valueOf(getArguments().get(bundleSetKey)));
         getArguments().get(setName);
         if (getArguments().get(bundleSetKey) != null) {
             this.setName = getArguments().get(bundleSetKey).toString();
         }
         mViewModel = ViewModelProviders.of(this).get(PokemonCardViewModel.class);
-        Log.wtf("onCreate", "Masuk sini");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.wtf("onActivityCreated", "Masuk sini");
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.wtf("onCreateView", "Masuk sini");
         View root = inflater.inflate(R.layout.pokemon_card_fragment, container, false);
         return root;
     }
@@ -60,19 +54,16 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.wtf("onViewStateRestored", "Masuk sini");
     }
 
     @Override
     public void onStart() {
         super.onStart();
         if (setName != null) {
-            Log.wtf("onCallRepository", "SetName: " + setName);
             mViewModel.getCardsBySetName(setName).observe(getViewLifecycleOwner(), new Observer<List<PokemonCard>>() {
                 @Override
                 public void onChanged(@Nullable final List<PokemonCard> cards) {
                     // Update the cached copy of the words in the adapter.
-                    Log.wtf("onChangedObserver", "SetName: " + setName);
                     mPokemonCards = cards;
                     loadPokemonCardUI(cards);
                 }
@@ -83,12 +74,10 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.wtf("onViewCreated", "Masuk sini");
     }
 
     private void loadPokemonCardUI(List<PokemonCard> pokemonCards) {
         recyclerView = getView().findViewById(R.id.cardRecyclerView);
-        Log.d("loadPokemonCardUI", "Size: " + pokemonCards.size());
         adapter = new PokemonCardAdapter(getContext(), this, pokemonCards);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -103,7 +92,6 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
         if (addClicked) {
             Bundle bundle = new Bundle();
             bundle.putParcelable("pokemon", pokemonCard);
-
             Navigation.findNavController(view).navigate(R.id.action_navigation_cards_to_navigation_detail, bundle);
         } else {
             // Favorite
