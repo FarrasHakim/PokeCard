@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.DbSynchronizer;
+import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonCardRepository;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.model.PokemonSet;
 
@@ -32,7 +33,9 @@ public class PokemonSetViewModel extends AndroidViewModel {
         if (isWifiConnected()) {
             new DbSynchronizer(mRepository, application).execute();
         } else {
-            Toast.makeText(application, "No Wifi Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(application,
+                    R.string.no_wifi_text,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

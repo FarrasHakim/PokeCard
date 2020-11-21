@@ -66,7 +66,7 @@ public class FavoriteCardFragment extends Fragment implements PokemonFavoriteAda
         // ToDo: Remove Card from favorites
         PokemonCard card = favoriteCards.get(position);
         Log.wtf("onCardListener Favorite", "Card Removed");
-        Toast.makeText(getContext(), card.getName() + " removed from favorites.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), card.getName() + getString(R.string.card_removed_text), Toast.LENGTH_LONG).show();
         mViewModel.removeCardFromFavorites(card.getId());
     }
 }

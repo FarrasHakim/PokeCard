@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PokeCardDemo</string>
+    <string name="sets_text">Set Kartu</string>
+    <string name="favorites_text">Favorit</string>
+    <string name="deck_text">Dek</string>
+    <string name="pokemons_text">Kartu Pokemon</string>
+    <string name="hello_blank_fragment">Halo fragmen kosong</string>
+    <string name="pokemon_detail_text">Detail Pokemon</string>
+    <string name="sync">Sinkronisasi</string>
+    <string name="bobby">Bobby</string>
+    <string name="card_detail">Detail Kartu</string>
+    <string name="card_removed_text">" dihilangkan dari favorit."</string>
+    <string name="retrofit_error">Ada yang salah gan</string>
+    <string name="added_to_favorites">" ditambahkan ke favorit."</string>
+    <string name="no_wifi_text">Tidak ada koneksi wifi</string>
+</resources>

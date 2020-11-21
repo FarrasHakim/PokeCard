@@ -18,7 +18,6 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
 //    private WeakReference<ProgressBar> progressBar;
     private final PokemonCardRepository mPokemonCardRepository;
     Context application;
-    private List<PokemonSet> pokemonSetApiData;
 
     public DbSynchronizer(PokemonCardRepository repository, Context appContext) {
         mPokemonCardRepository = repository;
@@ -61,7 +60,7 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
             public void onFailure(Call<PokemonSetResponse> call, Throwable t) {
                 Log.wtf("Dafuk", "The F ");
                 Log.wtf("Dafuk", String.valueOf(call));
-                Toast.makeText(application, "Something is wrong. I can feel it.", Toast.LENGTH_SHORT);
+                Toast.makeText(application, R.string.retrofit_error, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,10 +81,7 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
                                 Log.d("CardCall", pokemonCardApiData.size() + "");
                                 for (int index = 0; index < pokemonCardApiData.size(); index++) {
                                     id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonCard pokemonCard = pokemonCardApiData.get(index);
-//                                Log.wtf("PokemonSetViewModel", pokemonCard.getTypes() + "");
-//                                Log.wtf("PokemonSetViewModel", pokemonCard.getId() + "");
-//                                Log.wtf("PokemonSetViewModel", pokemonCard.getSupertype() + "");
-                                    int percentage = (index + 1) * (100 / pokemonCardApiData.size());
+                                  int percentage = (index + 1) * (100 / pokemonCardApiData.size());
 //                                publishProgress(percentage);
                                     if (pokemonCardApiData.get(index).getSupertype().equalsIgnoreCase("Pokémon")) {
                                         mPokemonCardRepository.insertPokemonCard(pokemonCardApiData.get(index).toPokemonCardEntity());
@@ -104,7 +100,7 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
                     Log.wtf("Dafuk", String.valueOf(call.request()));
                     Log.wtf("Dafuk", String.valueOf(call.request().body()));
                     Log.wtf("Dafuk", t);
-                    Toast.makeText(application, "Something is wrong. I can feel it.", Toast.LENGTH_SHORT);
+                    Toast.makeText(application, R.string.retrofit_error, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -117,7 +113,6 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
     }
 
     protected void onPostExecute(String result) {
-        Log.d("onPostExecute", String.valueOf(pokemonSetApiData));
 //        buttonView.get().setText(result);
 //        buttonView.get().setEnabled(true);
 //        progressBar.get().setProgress(0);

@@ -30,6 +30,5 @@ public abstract class PokemonRoomDatabase extends RoomDatabase {
     public abstract PokemonCardDao pokemonCardDao();
 
     public abstract PokemonSetDao pokemonSetDao();
-
 }
 

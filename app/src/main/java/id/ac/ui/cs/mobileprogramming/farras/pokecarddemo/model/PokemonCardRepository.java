@@ -26,12 +26,7 @@ public class PokemonCardRepository {
     }
 
     public LiveData<List<PokemonCard>> getPokemonCardsBySetName(String setName) {
-        Log.d("DAO", setName);
         return mPokemonCardDao.getPokemonCardsBySet(setName);
-    }
-
-    LiveData<PokemonCard> getPokemonCardById(String id) {
-        return mPokemonCardDao.getPokemonCardById(id);
     }
 
     public LiveData<List<PokemonSet>> getAllPokemonSets() {
@@ -43,8 +38,6 @@ public class PokemonCardRepository {
     }
 
     public void insertPokemonCard(PokemonCard pokemonCard) {
-        Log.wtf("insertPokemonCardRepository", pokemonCard.getName());
-        Log.wtf("insertPokemonCardRepository", pokemonCard.getSet());
         new insertCardAsyncTask(mPokemonCardDao).execute(pokemonCard);
     }
 

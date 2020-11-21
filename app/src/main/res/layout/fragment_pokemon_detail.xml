@@ -14,7 +14,7 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="120dp" android:layout_marginTop="57dp"
             app:layout_constraintTop_toTopOf="parent"/>
     <TextView
-            android:text="CardDetail"
+            android:text="@string/card_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/cardDetailText"
             android:textAlignment="center" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="173dp"

@@ -107,7 +107,7 @@ public class PokemonCardFragment extends Fragment implements PokemonCardAdapter.
             Navigation.findNavController(view).navigate(R.id.action_navigation_cards_to_navigation_detail, bundle);
         } else {
             // Favorite
-            Toast.makeText(getContext(), pokemonCard.getName() + " added to favorites.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), pokemonCard.getName() + getString(R.string.added_to_favorites), Toast.LENGTH_LONG).show();
             mViewModel.addCardToFavorites(pokemonCard.getId());
         }
     }
