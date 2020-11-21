@@ -14,6 +14,8 @@
         <action android:id="@+id/action_navigation_sets_to_navigation_cards" app:destination="@id/navigation_cards"/>
         <action android:id="@+id/action_navigation_sets_to_navigation_favorites"
                 app:destination="@id/navigation_favorites"/>
+        <action android:id="@+id/action_navigation_sets_to_navigation_counter"
+                app:destination="@id/navigation_counter"/>
     </fragment>
     <fragment
             android:id="@+id/navigation_cards"
@@ -30,6 +32,8 @@
             android:label="@string/favorites_text"
             tools:layout="@layout/fragment_favorite_card">
         <action android:id="@+id/action_navigation_favorites_to_navigation_sets" app:destination="@id/navigation_sets"/>
+        <action android:id="@+id/action_navigation_favorites_to_navigation_counter"
+                app:destination="@id/navigation_counter"/>
     </fragment>
 
     <fragment
@@ -38,5 +42,15 @@
             android:label="@string/pokemon_detail_text"
             tools:layout="@layout/fragment_pokemon_detail">
         <action android:id="@+id/action_navigation_detail_to_navigation_cards" app:destination="@id/navigation_cards"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/navigation_counter"
+            android:name="id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.CounterFragment"
+            android:label="@string/counter"
+            tools:layout="@layout/fragment_counter">
+        <action android:id="@+id/action_navigation_counter_to_navigation_sets" app:destination="@id/navigation_sets"/>
+        <action android:id="@+id/action_navigation_counter_to_navigation_favorites"
+                app:destination="@id/navigation_favorites"/>
     </fragment>
 </navigation>

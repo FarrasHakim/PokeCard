@@ -10,5 +10,9 @@
             android:id="@+id/navigation_favorites"
             android:icon="@drawable/ic_star_filled"
             android:title="@string/favorites_text"/>
+    <item
+            android:id="@+id/navigation_counter"
+            android:icon="@drawable/ic_counter"
+            android:title="@string/counter"/>
 
 </menu>

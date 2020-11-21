@@ -11,8 +11,14 @@
     <string name="sync">Sync</string>
     <string name="bobby">Bobby</string>
     <string name="card_detail">Card Detail</string>
-    <string name="card_removed_text"> removed from favorites.</string>
+    <string name="card_removed_text">removed from favorites.</string>
     <string name="retrofit_error">Something is wrong. I can feel it.</string>
-    <string name="added_to_favorites"> added to favorites.</string>
+    <string name="added_to_favorites">added to favorites.</string>
     <string name="no_wifi_text">No Wifi Connection</string>
+    <string name="counter">Counter</string>
+    <string name="a_random_feature_lmao">A random feature lmao</string>
+    <string name="zero_num">0</string>
+    <string name="start_text">Start</string>
+    <string name="stop_text">Stop</string>
+    <string name="reset_text">Reset</string>
 </resources>

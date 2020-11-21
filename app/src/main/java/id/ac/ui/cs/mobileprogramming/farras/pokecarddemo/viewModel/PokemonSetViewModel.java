@@ -29,7 +29,6 @@ public class PokemonSetViewModel extends AndroidViewModel {
     }
 
     public void syncDb() {
-        Log.d("PokemonSetViewModel", "SyncDB");
         if (isWifiConnected()) {
             new DbSynchronizer(mRepository, application).execute();
         } else {
