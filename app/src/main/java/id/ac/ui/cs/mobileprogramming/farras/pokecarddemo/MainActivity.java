@@ -1,13 +1,18 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -65,6 +71,38 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    private void addNotification() {
+        Log.d("Sebelum Notif", "Harusnya notif muncul");
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setVisibility(1);
+        mBuilder.setSmallIcon(R.drawable.ic_wifi);
+        mBuilder.setContentTitle("Notification Alert, Click Me!");
+        mBuilder.setContentText("Hi, This is Android Notification Detail!");
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channelId = "Your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+
+        // notificationID allows you to update the notification later on.
+        mNotificationManager.notify(1, mBuilder.build());
+
+        Log.d("Testtest", "Jumlah notif" + mNotificationManager.getActiveNotifications().length);
+        Log.d("Notif enabled?", "Status: " + mNotificationManager.areNotificationsEnabled());
+        Log.d("Builder Notif Exist", mBuilder.getNotification().visibility + "");
+
+    }
+
     @Override
     protected void onResume() {
         registerReceiver(mWifiScanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
@@ -79,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 wifiList = (TextView) findViewById(R.id.article);
                 List<ScanResult> mScanResults = mWifiManager.getScanResults();
                 for (ScanResult result : mScanResults) {
+                    addNotification();
                     wifiList.setText(result.SSID);
                 }
             }
