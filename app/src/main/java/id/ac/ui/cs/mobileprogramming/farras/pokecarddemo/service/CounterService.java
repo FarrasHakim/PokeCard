@@ -52,4 +52,9 @@ public class CounterService extends Service {
         intent.putExtra("counter", String.valueOf(counter));
         sendBroadcast(intent);
     }
+
+    static {
+        System.loadLibrary("native-lib");
+    }
+    public native double increment(double x);
 }
