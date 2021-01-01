@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    private void addNotification() {
+    private void addNotification(String contentTitle, String contentText) {
         Log.d("Sebelum Notif", "Harusnya notif muncul");
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setVisibility(1);
         mBuilder.setSmallIcon(R.drawable.ic_wifi);
-        mBuilder.setContentTitle("Notification Alert, Click Me!");
-        mBuilder.setContentText("Hi, This is Android Notification Detail!");
+        mBuilder.setContentTitle(contentTitle);
+        mBuilder.setContentText(contentText);
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -116,27 +116,20 @@ public class MainActivity extends AppCompatActivity {
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
                 wifiList = (TextView) findViewById(R.id.article);
                 List<ScanResult> mScanResults = mWifiManager.getScanResults();
+                String wifiListStr = "";
                 for (ScanResult result : mScanResults) {
-                    addNotification();
-                    wifiList.setText(result.SSID);
+                    wifiListStr += result.SSID + "\n";
                 }
+                wifiList.setText(wifiListStr);
+                addNotification("PokeCard", getString(R.string.wifi_scan_complete));
             }
         }
     };
 
     public void onClick(View v) {
-        Toast.makeText(this, "Masuk gan", Toast.LENGTH_LONG).show();
-        boolean successScan = mWifiManager.startScan();
+        mWifiManager.startScan();
         registerReceiver(mWifiScanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        String textMessage = "Success Scan: " + successScan + "\n"
-                + "Wifi Info: " + mWifiManager.getConnectionInfo() + "\n"
-                + "Wifi State: " + mWifiManager.getWifiState() + "\n"
-                + "Wifi Scan Results: " + mWifiManager.getScanResults().size() + "\n"
-                + "Wifi Connection State: " + mWifiManager.getWifiState();
 
-//        TextView textView = findViewById(R.id.wifiState);
-//        textView.setText(textMessage);
-        Toast.makeText(this, textMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override

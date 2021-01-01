@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class CounterService extends Service {
@@ -12,11 +13,12 @@ public class CounterService extends Service {
     private final int REFRESH_RATE = 100;
     Intent intent = new Intent(COUNTER_BR);
     private final Handler mHandler = new Handler();
-    private long counter;
+    private double counter;
     private final Runnable startCounter = new Runnable() {
         @Override
         public void run() {
-            counter += 1;
+            Log.d("Counter Service","Counter Service start counter");
+            counter = increment(counter);
             updateCounter(counter);
             mHandler.postDelayed(this, REFRESH_RATE);
         }
@@ -48,7 +50,7 @@ public class CounterService extends Service {
         return null;
     }
 
-    private void updateCounter(float counter) {
+    private void updateCounter(double counter) {
         intent.putExtra("counter", String.valueOf(counter));
         sendBroadcast(intent);
     }
