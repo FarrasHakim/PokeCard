@@ -1,9 +1,14 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.util.Log;
 import android.widget.Toast;
+import androidx.core.app.NotificationCompat;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiClient;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.ApiInterface;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.api.PokemonCardResponse;
@@ -82,6 +87,7 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
                     });
 
                     insertToDBThread.run();
+//                    addNotification("PokeCard", application.getString(R.string.sync_done));
 
                 }
 
@@ -92,6 +98,32 @@ public class DbSynchronizer extends AsyncTask<Void, Integer, String> {
             });
         }
         return "Sync";
+    }
+
+    private void addNotification(String contentTitle, String contentText) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(application);
+        mBuilder.setVisibility(1);
+        mBuilder.setSmallIcon(R.drawable.ic_wifi);
+        mBuilder.setContentTitle(contentTitle);
+        mBuilder.setContentText(contentText);
+
+        NotificationManager mNotificationManager = (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channelId = "Your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+
+        // notificationID allows you to update the notification later on.
+        mNotificationManager.notify(1, mBuilder.build());
+
     }
 
     protected void onPostExecute(String result) {
