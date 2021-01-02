@@ -1,18 +1,18 @@
-package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo;
+package openGL;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
-public class MyGLSurfaceVIew extends GLSurfaceView {
+public class MyGLSurfaceView extends GLSurfaceView {
     private final MyGLRenderer mRenderer;
 
-    public MyGLSurfaceVIew(Context context) {
+    public MyGLSurfaceView(Context context) {
         super(context);
         // Create an OpenGL ES 2.0 context
         setEGLContextClientVersion(2);
         mRenderer = new MyGLRenderer();
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
-
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 }
