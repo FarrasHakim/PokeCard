@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -52,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        if (mWifiManager.isWifiEnabled() == false)
-        {
+        if (mWifiManager.isWifiEnabled() == false) {
             // If wifi disabled then enable it
             Toast.makeText(this, "wifi is disabled..making it enabled",
                     Toast.LENGTH_LONG).show();
@@ -83,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // === Removed some obsoletes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "Your_channel_id";
             NotificationChannel channel = new NotificationChannel(
                     channelId,
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context c, Intent intent) {
             Log.d("BRReceiver", "Receive Wifi Scan");
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
-                wifiList = (TextView) findViewById(R.id.article);
+                wifiList = findViewById(R.id.article);
                 List<ScanResult> mScanResults = mWifiManager.getScanResults();
                 String wifiListStr = "";
                 for (ScanResult result : mScanResults) {

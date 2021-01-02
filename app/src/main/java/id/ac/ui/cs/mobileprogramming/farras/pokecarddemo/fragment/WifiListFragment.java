@@ -1,20 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.widget.Toast;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
 import id.ac.ui.cs.mobileprogramming.farras.pokecarddemo.R;
-
-import java.util.List;
 
 public class WifiListFragment extends Fragment {
 

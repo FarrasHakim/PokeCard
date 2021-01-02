@@ -17,7 +17,7 @@ public class CounterService extends Service {
     private final Runnable startCounter = new Runnable() {
         @Override
         public void run() {
-            Log.d("Counter Service","Counter Service start counter");
+            Log.d("Counter Service", "Counter Service start counter");
             counter = increment(counter);
             updateCounter(counter);
             mHandler.postDelayed(this, REFRESH_RATE);
@@ -58,5 +58,6 @@ public class CounterService extends Service {
     static {
         System.loadLibrary("native-lib");
     }
+
     public native double increment(double x);
 }

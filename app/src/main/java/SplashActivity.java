@@ -17,15 +17,15 @@ public class SplashActivity extends Activity {
         gLView = new MyGLSurfaceView(this);
         setContentView(gLView);
 
-        handler=new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-        },1500);
+        }, 1500);
 
     }
 }

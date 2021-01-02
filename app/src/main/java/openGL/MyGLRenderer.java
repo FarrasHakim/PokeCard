@@ -10,7 +10,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
     private Triangle mTriangle;
-    private float[] rotationMatrix = new float[16];
+    private final float[] rotationMatrix = new float[16];
 
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] vPMatrix = new float[16];
@@ -65,7 +65,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     }
 
-    public static int loadShader(int type, String shaderCode){
+    public static int loadShader(int type, String shaderCode) {
 
         // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
         // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
