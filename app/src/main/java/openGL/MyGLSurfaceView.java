@@ -13,6 +13,5 @@ public class MyGLSurfaceView extends GLSurfaceView {
         mRenderer = new MyGLRenderer();
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
-        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 }

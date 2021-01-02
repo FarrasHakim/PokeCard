@@ -14,11 +14,8 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splashfile);
-
         gLView = new MyGLSurfaceView(this);
         setContentView(gLView);
-
 
         handler=new Handler();
         handler.postDelayed(new Runnable() {
