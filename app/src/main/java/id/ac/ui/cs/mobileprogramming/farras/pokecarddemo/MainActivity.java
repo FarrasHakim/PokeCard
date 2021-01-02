@@ -97,10 +97,6 @@ public class MainActivity extends AppCompatActivity {
         // notificationID allows you to update the notification later on.
         mNotificationManager.notify(1, mBuilder.build());
 
-        Log.d("Testtest", "Jumlah notif" + mNotificationManager.getActiveNotifications().length);
-        Log.d("Notif enabled?", "Status: " + mNotificationManager.areNotificationsEnabled());
-        Log.d("Builder Notif Exist", mBuilder.getNotification().visibility + "");
-
     }
 
     @Override
